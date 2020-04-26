@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:healthdiary/widgets/input_field.dart';
-import 'package:mobx/mobx.dart';
 import 'login_controller.dart';
 
 class LoginPage extends StatefulWidget {
@@ -44,7 +43,6 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                 return InputField(
                   icon: Icons.person_outline,
                   hint: "Login",
-                  obscure: true,
                   onChanged: controller.setEmail,
                 );
               }),
@@ -55,6 +53,20 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                   obscure: true,
                   onChanged: controller.setPassword,
                 );
+              }),
+              Observer(builder: (_) {
+                if (controller.error != null) {
+                  return Column(
+                    children: <Widget>[
+                      SizedBox(
+                        height: 16,
+                      ),
+                      Center(child: Text(controller.error)),
+                    ],
+                  );
+                }
+
+                return null;
               }),
               SizedBox(
                 height: 32,
@@ -70,7 +82,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                     disabledColor: Colors.pinkAccent.withAlpha(140),
                   ),
                 );
-              })
+              }),
             ],
           ),
         )),

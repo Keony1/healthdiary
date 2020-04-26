@@ -17,7 +17,10 @@ abstract class _LoginControllerBase with Store {
   String password = "";
 
   @action
-  void setEmail(String value) => email = value;
+  void setEmail(String value) {
+    error = "";
+    email = value;
+  }
 
   @action
   void setPassword(String value) => password = value;
@@ -32,21 +35,26 @@ abstract class _LoginControllerBase with Store {
   bool get isFormValid => isEmailValid && isPasswordValid;
 
   @observable
+  String error = "";
+
+  @observable
   bool loading = false;
 
   @action
   Future<AuthStatus> login() async {
     loading = true;
-
-    AuthStatus status = await auth.doLogin(email, password);
-    print(status);
-    if (status == AuthStatus.SUCCESS) {
-      if (await auth.getPrevilegies() == 'client') {
-        Modular.to.pushReplacementNamed("/client");
-      } else {
-        Modular.to.pushReplacementNamed("/admin");
+    try {
+      AuthStatus status = await auth.doLogin(email, password);
+      if (status == AuthStatus.SUCCESS) {
+        if (await auth.getPrevilegies() == 'client') {
+          Modular.to.pushReplacementNamed("/client");
+        } else {
+          Modular.to.pushReplacementNamed("/admin");
+        }
       }
+      //faz alguma coisa pra quem não logou
+    } catch (err) {
+      error = err;
     }
-    //faz alguma coisa pra quem não logou
   }
 }

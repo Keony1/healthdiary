@@ -61,6 +61,23 @@ mixin _$LoginController on _LoginControllerBase, Store {
     }, _$passwordAtom, name: '${_$passwordAtom.name}_set');
   }
 
+  final _$errorAtom = Atom(name: '_LoginControllerBase.error');
+
+  @override
+  String get error {
+    _$errorAtom.context.enforceReadPolicy(_$errorAtom);
+    _$errorAtom.reportObserved();
+    return super.error;
+  }
+
+  @override
+  set error(String value) {
+    _$errorAtom.context.conditionallyRunInAction(() {
+      super.error = value;
+      _$errorAtom.reportChanged();
+    }, _$errorAtom, name: '${_$errorAtom.name}_set');
+  }
+
   final _$loadingAtom = Atom(name: '_LoginControllerBase.loading');
 
   @override
@@ -111,7 +128,7 @@ mixin _$LoginController on _LoginControllerBase, Store {
   @override
   String toString() {
     final string =
-        'email: ${email.toString()},password: ${password.toString()},loading: ${loading.toString()},isEmailValid: ${isEmailValid.toString()},isPasswordValid: ${isPasswordValid.toString()},isFormValid: ${isFormValid.toString()}';
+        'email: ${email.toString()},password: ${password.toString()},error: ${error.toString()},loading: ${loading.toString()},isEmailValid: ${isEmailValid.toString()},isPasswordValid: ${isPasswordValid.toString()},isFormValid: ${isFormValid.toString()}';
     return '{$string}';
   }
 }

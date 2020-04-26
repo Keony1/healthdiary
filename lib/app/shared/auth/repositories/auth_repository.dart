@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:healthdiary/app/shared/auth/auth_controller.dart';
 import 'package:healthdiary/app/shared/auth/repositories/auth_repository_interface.dart';
 
 class AuthRepository implements IAuthRepository {
@@ -9,30 +8,39 @@ class AuthRepository implements IAuthRepository {
 
   @override
   Future getLoginWithEmailAndPassword(String email, String password) async {
+    String errorMessage;
+    Map user;
+
     try {
       AuthResult result = await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
 
-      if (result != null) {
-        return _firestore
-            .collection("users")
-            .document(result.user.uid)
-            .get()
-            .then((doc) {
-          if (doc.data != null) {
-            return doc.data;
-          } else {
-            return null;
-          }
-        }).catchError((e) {
+      user = await _firestore
+          .collection("users")
+          .document(result.user.uid)
+          .get()
+          .then((doc) {
+        if (doc.data != null) {
+          return doc.data;
+        } else {
           return null;
-        });
+        }
+      });
+    } catch (error) {
+      switch (error.code) {
+        case 'ERROR_USER_NOT_FOUND':
+          errorMessage = "USUÁRIO NÃO EXISTE";
+          break;
+        default:
+          errorMessage = "NÃO FOI POSSÍVEL AUTENTICAR";
       }
-    } catch (err) {
-      return null;
     }
 
-    return null;
+    if (errorMessage != null) {
+      return Future.error(errorMessage);
+    }
+
+    return user;
   }
 
   @override
