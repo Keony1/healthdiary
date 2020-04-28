@@ -7,7 +7,7 @@ part 'login_controller.g.dart';
 
 class LoginController = _LoginControllerBase with _$LoginController;
 
-abstract class _LoginControllerBase with Store {
+class _LoginControllerBase with Store {
   AuthController auth = Modular.get();
 
   @observable
@@ -16,6 +16,10 @@ abstract class _LoginControllerBase with Store {
   @observable
   String password = "";
 
+  bool tapEmail = false;
+
+  bool tapPassword = false;
+
   @action
   void setEmail(String value) {
     error = "";
@@ -23,16 +27,38 @@ abstract class _LoginControllerBase with Store {
   }
 
   @action
-  void setPassword(String value) => password = value;
+  void setPassword(String value) {
+    password = value;
+  }
+
+  @action
+  void isTappedEmail() {
+    tapEmail = true;
+  }
+
+  @action
+  void isTappedPassword() {
+    tapPassword = true;
+  }
 
   @computed
-  bool get isEmailValid => email.length >= 6;
+  bool get isEmailValid => email.length >= 4;
 
   @computed
-  bool get isPasswordValid => password.length >= 6;
+  bool get isPasswordValid => password.length >= 4;
 
   @computed
   bool get isFormValid => isEmailValid && isPasswordValid;
+
+  @computed
+  String get errorEmail => email.length > 0 && email.length < 4
+      ? "Seu login deve ser maior que 3 caracteres"
+      : null;
+
+  @computed
+  String get errorPassword => password.length > 0 && password.length < 4
+      ? "Sua senha deve ser maior que 3 caracteres"
+      : null;
 
   @observable
   String error = "";
@@ -41,7 +67,7 @@ abstract class _LoginControllerBase with Store {
   bool loading = false;
 
   @action
-  Future<AuthStatus> login() async {
+  login() async {
     loading = true;
     try {
       AuthStatus status = await auth.doLogin(email, password);

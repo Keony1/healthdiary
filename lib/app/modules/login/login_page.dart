@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:healthdiary/app/shared/animations/fade_animation.dart';
 import 'package:healthdiary/widgets/input_field.dart';
 import 'login_controller.dart';
 
@@ -16,77 +17,136 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
       body: _body(),
     );
   }
 
   _body() {
-    return Stack(
-      alignment: Alignment.center,
-      children: <Widget>[
-        Container(),
-        SingleChildScrollView(
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+          gradient: LinearGradient(begin: Alignment.topCenter, colors: [
+        Colors.deepPurple[900],
+        Colors.deepPurple[600],
+        Colors.deepPurple[400],
+      ])),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(
+            height: 80,
+          ),
+          Padding(
+            padding: EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                FadeAnimation(
+                    1,
+                    Text(
+                      "Health Diary",
+                      style: TextStyle(color: Colors.white, fontSize: 40),
+                    )),
+                SizedBox(
+                  height: 10,
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 20),
+          Expanded(
             child: Container(
-          margin: EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Icon(
-                Icons.free_breakfast,
-                color: Colors.pinkAccent,
-                size: 160,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(75.0),
+                ),
               ),
-              Observer(builder: (_) {
-                return InputField(
-                  icon: Icons.person_outline,
-                  hint: "Login",
-                  onChanged: controller.setEmail,
-                );
-              }),
-              Observer(builder: (_) {
-                return InputField(
-                  icon: Icons.lock_outline,
-                  hint: "Senha",
-                  obscure: true,
-                  onChanged: controller.setPassword,
-                );
-              }),
-              Observer(builder: (_) {
-                if (controller.error != null) {
-                  return Column(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.all(30),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       SizedBox(
-                        height: 16,
+                        height: 60,
                       ),
-                      Center(child: Text(controller.error)),
+                      FadeAnimation(
+                          1.4,
+                          Container(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: <Widget>[
+                                Observer(builder: (_) {
+                                  return InputField(
+                                    icon: Icons.person_outline,
+                                    hint: "Login",
+                                    onChanged: controller.setEmail,
+                                    errorText: controller.errorEmail,
+                                    onTap: controller.isTappedEmail,
+                                  );
+                                }),
+                                Observer(builder: (_) {
+                                  return InputField(
+                                    icon: Icons.lock_outline,
+                                    hint: "Senha",
+                                    obscure: true,
+                                    onChanged: controller.setPassword,
+                                    errorText: controller.errorPassword,
+                                    onTap: controller.isTappedPassword,
+                                  );
+                                }),
+                                Observer(
+                                  builder: (_) {
+                                    if (controller.error != null) {
+                                      return Column(
+                                        children: <Widget>[
+                                          SizedBox(
+                                            height: 16,
+                                          ),
+                                          Center(child: Text(controller.error)),
+                                        ],
+                                      );
+                                    }
+                                  },
+                                )
+                              ],
+                            ),
+                          )),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      FadeAnimation(
+                        1.6,
+                        Observer(builder: (_) {
+                          return SizedBox(
+                            height: 50,
+                            child: RaisedButton(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(18.0),
+                              ),
+                              color: Colors.deepPurple[800],
+                              child: Text("Entrar"),
+                              onPressed: controller.isFormValid
+                                  ? controller.login
+                                  : null,
+                              textColor: Colors.white,
+                              disabledColor: Colors.deepPurple.withAlpha(140),
+                            ),
+                          );
+                        }),
+                      ),
                     ],
-                  );
-                }
-
-                return null;
-              }),
-              SizedBox(
-                height: 32,
-              ),
-              Observer(builder: (_) {
-                return SizedBox(
-                  height: 50,
-                  child: RaisedButton(
-                    color: Colors.pinkAccent,
-                    child: Text("Entrar"),
-                    onPressed: controller.isFormValid ? controller.login : null,
-                    textColor: Colors.white,
-                    disabledColor: Colors.pinkAccent.withAlpha(140),
                   ),
-                );
-              }),
-            ],
-          ),
-        )),
-      ],
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
