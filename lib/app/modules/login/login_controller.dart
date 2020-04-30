@@ -80,7 +80,8 @@ class _LoginControllerBase with Store {
       }
       //faz alguma coisa pra quem não logou
     } catch (err) {
-      error = err;
+      print(err);
+      //   error = err;
     }
   }
 }
