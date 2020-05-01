@@ -13,25 +13,43 @@ abstract class _AuthControllerBase with Store {
   AuthStatus status = AuthStatus.LOADING;
 
   @observable
-  var user;
+  dynamic user;
 
   @action
   Future<AuthStatus> doLogin(String newEmail, String newPassword) async {
     String completedEmail = newEmail + '@healthdiary.com.br';
-    var user = await _repository.getLoginWithEmailAndPassword(
+
+    user = await _repository.getLoginWithEmailAndPassword(
         completedEmail, newPassword);
 
-    print(user);
     if (user != null) {
-      return AuthStatus.SUCCESS;
+      status = AuthStatus.SUCCESS;
+      return status;
+    } else {
+      status = AuthStatus.FAIL;
+      return status;
     }
-
-    return AuthStatus.FAIL;
   }
 
-  Future getPrevilegies() async {
+  @action
+  checkStatus() async {
+    user = await _repository.checkAuthStatus();
+    if (user != null) {
+      status = AuthStatus.SUCCESS;
+    } else {
+      status = AuthStatus.FAIL;
+    }
+  }
+
+  @action
+  Future getStatus() async {
+    return status;
+  }
+
+  @action
+  Future getUserData() async {
     Map userData = await _repository.getUser();
-    return userData['role'];
+    return userData;
   }
 
   @action

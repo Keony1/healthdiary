@@ -41,62 +41,16 @@ class _HomePageState extends ModularState<HomePage, HomeController>
   }
 
   _body() {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-          gradient: LinearGradient(begin: Alignment.topCenter, colors: [
-        Colors.red[900],
-        Colors.red[600],
-        Colors.red[400],
-      ])),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(
-            height: 80,
+    return CustomScrollView(
+      slivers: <Widget>[
+        SliverAppBar(title: Text("Health Diary"), actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.exit_to_app),
+            tooltip: 'Sair',
+            onPressed: controller.logoff,
           ),
-          Padding(
-            padding: EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                FadeAnimation(
-                  1,
-                  Text(
-                    "Olá Antonio,",
-                    style: TextStyle(color: Colors.white, fontSize: 40),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                FadeAnimation(
-                  1,
-                  Text(
-                    "O que você está comendo agora?",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 20),
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(75.0),
-                ),
-              ),
-              child: Container(),
-            ),
-          )
-        ],
-      ),
+        ])
+      ],
     );
   }
 

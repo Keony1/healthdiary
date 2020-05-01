@@ -37,7 +37,7 @@ class AuthRepository implements IAuthRepository {
     }
 
     if (errorMessage != null) {
-      return Future.error(errorMessage);
+      Future.error(errorMessage);
     }
 
     return user;
@@ -59,5 +59,16 @@ class AuthRepository implements IAuthRepository {
   @override
   Future getLogOut() {
     return _firebaseAuth.signOut();
+  }
+
+  @override
+  Future checkAuthStatus() async {
+    var currentUser = await FirebaseAuth.instance.currentUser();
+
+    if (currentUser != null) {
+      return currentUser;
+    }
+
+    return null;
   }
 }

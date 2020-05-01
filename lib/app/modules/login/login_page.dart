@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:healthdiary/app/shared/animations/fade_animation.dart';
+import 'package:healthdiary/app/shared/auth/auth_controller.dart';
 import 'package:healthdiary/widgets/input_field.dart';
+import 'package:healthdiary/widgets/splash_page.dart';
+import 'package:mobx/mobx.dart';
 import 'login_controller.dart';
 
 class LoginPage extends StatefulWidget {
   final String title;
+
   const LoginPage({Key key, this.title = "Login"}) : super(key: key);
 
   @override
@@ -15,9 +19,22 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends ModularState<LoginPage, LoginController> {
   @override
+  void initState() {
+    autorun((_) => controller.autoLogin());
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _body(),
+      body: Observer(builder: (_) {
+        if (controller.loading) {
+          return SplashPage();
+        } else {
+          return _body();
+        }
+      }),
     );
   }
 

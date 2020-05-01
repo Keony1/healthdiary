@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:healthdiary/app/shared/auth/auth_controller.dart';
 import 'package:mobx/mobx.dart';
@@ -8,7 +7,7 @@ part 'login_controller.g.dart';
 class LoginController = _LoginControllerBase with _$LoginController;
 
 class _LoginControllerBase with Store {
-  AuthController auth = Modular.get();
+  AuthController _auth = Modular.get();
 
   @observable
   String email = "";
@@ -66,22 +65,41 @@ class _LoginControllerBase with Store {
   @observable
   bool loading = false;
 
+  @observable
+  Map user;
+
+  @observable
+  AuthStatus status;
+
   @action
-  login() async {
+  autoLogin() async {
     loading = true;
-    try {
-      AuthStatus status = await auth.doLogin(email, password);
-      if (status == AuthStatus.SUCCESS) {
-        if (await auth.getPrevilegies() == 'client') {
-          Modular.to.pushReplacementNamed("/client");
-        } else {
-          Modular.to.pushReplacementNamed("/admin");
-        }
+    await _auth.checkStatus();
+    status = await _auth.getStatus();
+    pushPage(status);
+  }
+
+  @action
+  pushPage(status) async {
+    if (status == AuthStatus.SUCCESS) {
+      Map user = await _auth.getUserData();
+
+      if (user['role'] == 'client') {
+        Modular.to.pushReplacementNamed("/client");
+      } else {
+        Modular.to.pushReplacementNamed("/admin");
       }
-      //faz alguma coisa pra quem não logou
-    } catch (err) {
-      print(err);
-      //   error = err;
+    } else if (status == AuthStatus.FAIL) {
+      await Future.delayed(Duration(seconds: 1));
+      loading = false;
     }
+  }
+
+  @action
+  Future login() async {
+    loading = true;
+
+    status = await _auth.doLogin(email, password);
+    pushPage(status);
   }
 }

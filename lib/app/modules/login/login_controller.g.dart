@@ -98,7 +98,7 @@ mixin _$LoginController on _LoginControllerBase, Store {
   final _$loginAsyncAction = AsyncAction('login');
 
   @override
-  Future<AuthStatus> login() {
+  Future login() {
     return _$loginAsyncAction.run(() => super.login());
   }
 
