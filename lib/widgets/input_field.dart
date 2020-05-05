@@ -23,11 +23,11 @@ class InputField extends StatelessWidget {
       onChanged: onChanged,
       onTap: onTap,
       decoration: InputDecoration(
-        icon: Icon(icon, color: Colors.red[900]),
+        icon: Icon(icon, color: Colors.deepOrange[900]),
         hintText: hint,
         hintStyle: TextStyle(color: Colors.grey),
         focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.red[900])),
+            borderSide: BorderSide(color: Colors.deepOrange[900])),
         contentPadding:
             EdgeInsets.only(left: 5, right: 30, top: 30, bottom: 30),
         errorText: errorText,

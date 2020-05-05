@@ -8,7 +8,7 @@ class SplashPage extends StatelessWidget {
     return Container(
       child: Center(
           child: CircularProgressIndicator(
-        valueColor: AlwaysStoppedAnimation(Colors.red),
+        valueColor: AlwaysStoppedAnimation(Colors.deepOrange),
       )),
     );
   }

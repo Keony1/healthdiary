@@ -43,9 +43,9 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
       width: double.infinity,
       decoration: BoxDecoration(
           gradient: LinearGradient(begin: Alignment.topCenter, colors: [
-        Colors.red[900],
-        Colors.red[600],
-        Colors.red[400],
+        Colors.deepOrange[900],
+        Colors.deepOrange[600],
+        Colors.deepOrange[400],
       ])),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -145,13 +145,13 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(18.0),
                               ),
-                              color: Colors.red[800],
+                              color: Colors.deepOrange[800],
                               child: Text("Entrar"),
                               onPressed: controller.isFormValid
                                   ? controller.login
                                   : null,
                               textColor: Colors.white,
-                              disabledColor: Colors.red.withAlpha(140),
+                              disabledColor: Colors.deepOrange.withAlpha(140),
                             ),
                           );
                         }),

@@ -29,6 +29,7 @@ dependencies:
   flutter_modular: ^1.1.2
   simple_animations: ^2.1.1
   supercharged: ^1.5.1
+  curved_navigation_bar: ^0.3.2
   flutter:
     sdk: flutter
 
