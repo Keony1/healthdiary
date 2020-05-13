@@ -29,7 +29,10 @@ dependencies:
   flutter_modular: ^1.1.2
   simple_animations: ^2.1.1
   supercharged: ^1.5.1
-  curved_navigation_bar: ^0.3.2
+  circle_bottom_navigation: ^1.0.4
+  medium_clap_flutter: ^0.0.1
+  font_awesome_flutter: ^8.8.1
+
   flutter:
     sdk: flutter
 
@@ -67,12 +70,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
+  fonts:
+    - family: DancingScript
+      fonts:
+        - asset: fonts/DancingScript-Bold.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

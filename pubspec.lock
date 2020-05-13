@@ -113,6 +113,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
+  circle_bottom_navigation:
+    dependency: "direct main"
+    description:
+      name: circle_bottom_navigation
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.5"
   cloud_firestore:
     dependency: "direct main"
     description:
@@ -169,13 +176,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.16.1"
-  curved_navigation_bar:
-    dependency: "direct main"
-    description:
-      name: curved_navigation_bar
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.2"
   dart_style:
     dependency: transitive
     description:
@@ -296,6 +296,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  font_awesome_flutter:
+    dependency: "direct main"
+    description:
+      name: font_awesome_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "8.8.1"
   glob:
     dependency: transitive
     description:
@@ -380,6 +387,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.12.6"
+  medium_clap_flutter:
+    dependency: "direct main"
+    description:
+      name: medium_clap_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.1"
   meta:
     dependency: transitive
     description:

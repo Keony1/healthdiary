@@ -9,7 +9,7 @@ class AppWidget extends StatelessWidget {
       title: 'Health Diary',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Colors.deepOrange[700],
+        primaryColor: Colors.white,
         brightness: Brightness.light,
       ),
       initialRoute: '/',
