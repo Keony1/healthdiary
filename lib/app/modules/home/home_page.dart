@@ -18,7 +18,7 @@ class _HomePageState extends ModularState<HomePage, HomeController>
   int _page = 0;
 
   List _widgetPages = [
-    ListView.builder(
+    ListView.separated(
       itemCount: 4,
       itemBuilder: (BuildContext context, int index) {
         return MealTile(
@@ -28,6 +28,12 @@ class _HomePageState extends ModularState<HomePage, HomeController>
           name: 'Almoço muito bom hojeee banana de pijamas subindo as escadas',
           raters: 2,
           rating: 4.0,
+        );
+      },
+      separatorBuilder: (context, index) {
+        return Divider(
+          height: 5,
+          color: Color(0xFFDDDDDD),
         );
       },
     ),
@@ -71,7 +77,7 @@ class _HomePageState extends ModularState<HomePage, HomeController>
       actions: <Widget>[
         IconButton(
           icon: Icon(Icons.exit_to_app),
-          color: Colors.white,
+          color: Colors.redAccent,
           onPressed: controller.logoff,
         ),
       ],

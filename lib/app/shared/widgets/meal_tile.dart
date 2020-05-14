@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:healthdiary/app/shared/widgets/smooth_start_rating.dart';
 
 class MealTile extends StatelessWidget {
   final String name;
@@ -26,10 +25,25 @@ class MealTile extends StatelessWidget {
         shrinkWrap: true,
         primary: false,
         children: <Widget>[
+          ListTile(
+            leading: CircleAvatar(
+              backgroundColor: Colors.brown.shade800,
+              child: Text('AN'),
+            ),
+            title: Text(
+              'Antônio',
+              style: TextStyle(fontWeight: FontWeight.w700),
+            ),
+            subtitle: Text('25 anos, 80kg.'),
+            trailing: Text(
+              '12:32',
+              style: TextStyle(color: Colors.grey),
+            ),
+          ),
           Stack(
             children: <Widget>[
               Container(
-                height: MediaQuery.of(context).size.height / 2.0,
+                height: MediaQuery.of(context).size.height / 2.5,
                 width: MediaQuery.of(context).size.width,
                 child: ClipRRect(
                   child: Image.asset(
@@ -39,16 +53,17 @@ class MealTile extends StatelessWidget {
                 ),
               ),
               Positioned(
-                left: 5.0,
-                bottom: 270.0,
-                child: RawMaterialButton(
+                  left: 5.0,
+                  top: 10.0,
+                  child: RawMaterialButton(
                     onPressed: () {},
-                    fillColor: Colors.white,
-                    elevation: 4.0,
+                    fillColor: Colors.redAccent,
+                    elevation: 1.0,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                      side: BorderSide(
-                        color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(15),
+                        bottomRight: Radius.circular(15),
+                        topRight: Radius.circular(15),
                       ),
                     ),
                     child: Padding(
@@ -56,115 +71,116 @@ class MealTile extends StatelessWidget {
                       child: Text(
                         '$type',
                         style: TextStyle(
-                          color: Colors.redAccent,
+                          color: Colors.white,
                         ),
                       ),
-                    )),
-              ),
-              Positioned(
-                right: -10.0,
-                bottom: 270.0,
-                child: RawMaterialButton(
-                  onPressed: () {},
-                  fillColor: Colors.white,
-                  elevation: 4.0,
-                  shape: CircleBorder(),
-                  child: Padding(
-                    padding: EdgeInsets.all(5),
-                    child: Icon(
-                      Icons.timelapse,
-                      color: Colors.redAccent,
-                      size: 30,
                     ),
-                  ),
-                ),
-              ),
-              Positioned(
-                right: -10.0,
-                bottom: 3.0,
-                child: RawMaterialButton(
-                  onPressed: () {},
-                  fillColor: Colors.white,
-                  shape: CircleBorder(),
-                  elevation: 4.0,
-                  child: Padding(
-                    padding: EdgeInsets.all(5),
-                    child: Icon(
-                      Icons.sentiment_satisfied,
-                      color: Colors.lightGreen,
-                      size: 30,
-                    ),
-                  ),
-                ),
-              ),
+                  )),
             ],
           ),
-          Padding(
-            padding: EdgeInsets.only(bottom: 2.0, left: 10),
-            child: Text(
+          ListTile(
+            leading: RawMaterialButton(
+              onPressed: () {},
+              elevation: 1.0,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Icon(
+                    Icons.star,
+                    color: Colors.yellow,
+                  ),
+                  Icon(
+                    Icons.star,
+                    color: Colors.yellow,
+                  ),
+                  Icon(
+                    Icons.star,
+                    color: Colors.yellow,
+                  ),
+                  Icon(
+                    Icons.star,
+                    color: Colors.yellow,
+                  ),
+                  Icon(
+                    Icons.star,
+                    color: Colors.yellow,
+                  ),
+                ],
+              ),
+            ),
+            title: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    Image.asset(
+                      'assets/images/bolt.png',
+                      width: 10,
+                    ),
+                    Text(
+                      '3005',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: <Widget>[
+                    Image.asset(
+                      'assets/images/fish.png',
+                      width: 15,
+                    ),
+                    SizedBox(
+                      height: 3,
+                    ),
+                    Text(
+                      '3005',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: <Widget>[
+                    Image.asset(
+                      'assets/images/sausage.png',
+                      width: 15,
+                    ),
+                    SizedBox(
+                      height: 3,
+                    ),
+                    Text(
+                      '3005',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            trailing: Text(
+              '4000 kcal',
+              style: TextStyle(color: Colors.grey),
+            ),
+          ),
+          ListTile(
+            title: Text(
               "$name",
               style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w600,
               ),
-              maxLines: 2,
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(
-              bottom: 5.0,
-              top: 2.0,
-              left: 10,
-            ),
+            padding: EdgeInsets.only(left: 15.0, top: 10, bottom: 10),
             child: Row(
+              mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Text('30'),
-                    IconButton(
-                      onPressed: () {},
-                      padding: EdgeInsets.only(right: 20),
-                      icon: Image.asset(
-                        'assets/images/bolt.png',
-                        width: 15,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Text('30'),
-                    IconButton(
-                      onPressed: () {},
-                      padding: EdgeInsets.only(right: 20),
-                      icon: Image.asset(
-                        'assets/images/fish.png',
-                        width: 20,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Text('30'),
-                    IconButton(
-                      onPressed: () {},
-                      padding: EdgeInsets.only(right: 20),
-                      icon: Image.asset(
-                        'assets/images/sausage.png',
-                        width: 20,
-                      ),
-                    ),
-                  ],
-                ),
-                Container(
-                  width: 40,
-                ),
-                Text('Calorias: 540kcal')
+                Text(
+                  'Ver todos os 20 comentários',
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                )
               ],
             ),
           ),

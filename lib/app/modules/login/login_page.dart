@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:healthdiary/app/shared/animations/fade_animation.dart';
 import 'package:healthdiary/app/shared/auth/auth_controller.dart';
 import 'package:healthdiary/app/shared/widgets/input_field.dart';
@@ -41,47 +42,44 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
   _body() {
     return Container(
       width: double.infinity,
-      decoration: BoxDecoration(
-          gradient: LinearGradient(begin: Alignment.topCenter, colors: [
-        Colors.deepOrange[900],
-        Colors.deepOrange[600],
-        Colors.deepOrange[400],
-      ])),
+      decoration: BoxDecoration(color: Colors.white),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           SizedBox(
             height: 80,
           ),
-          Padding(
-            padding: EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                FadeAnimation(
-                    1,
-                    Text(
-                      "Health Diary",
-                      style: TextStyle(color: Colors.white, fontSize: 40),
-                    )),
-                SizedBox(
-                  height: 10,
+          Column(
+            children: <Widget>[
+              FadeAnimation(
+                  1,
+                  FaIcon(
+                    FontAwesomeIcons.bookMedical,
+                    color: Colors.redAccent,
+                    size: 35,
+                  )),
+              FadeAnimation(
+                1,
+                Text(
+                  "Health Diary",
+                  style: TextStyle(
+                      fontFamily: 'DancingScript',
+                      fontSize: 50,
+                      color: Colors.redAccent),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          SizedBox(height: 20),
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.white,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(75.0),
                 ),
               ),
               child: SingleChildScrollView(
                 child: Padding(
-                  padding: EdgeInsets.all(30),
+                  padding: EdgeInsets.only(bottom: 20, left: 20, right: 20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
