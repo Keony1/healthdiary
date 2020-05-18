@@ -42,22 +42,23 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
   _body() {
     return Container(
       width: double.infinity,
-      decoration: BoxDecoration(color: Colors.white),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.center,
+          colors: [
+            Color.fromRGBO(248, 80, 50, 0.8),
+            Color.fromRGBO(231, 56, 39, 0.8),
+          ],
+        ),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           SizedBox(
-            height: 80,
+            height: 90,
           ),
           Column(
             children: <Widget>[
-              FadeAnimation(
-                  1,
-                  FaIcon(
-                    FontAwesomeIcons.bookMedical,
-                    color: Colors.redAccent,
-                    size: 35,
-                  )),
               FadeAnimation(
                 1,
                 Text(
@@ -65,10 +66,13 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                   style: TextStyle(
                       fontFamily: 'DancingScript',
                       fontSize: 50,
-                      color: Colors.redAccent),
+                      color: Colors.white),
                 ),
               ),
             ],
+          ),
+          SizedBox(
+            height: 80,
           ),
           Expanded(
             child: Container(
@@ -76,10 +80,11 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(75.0),
                 ),
+                color: Colors.white,
               ),
               child: SingleChildScrollView(
                 child: Padding(
-                  padding: EdgeInsets.only(bottom: 20, left: 20, right: 20),
+                  padding: EdgeInsets.all(20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
@@ -143,13 +148,13 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(18.0),
                               ),
-                              color: Colors.deepOrange[800],
+                              color: Color.fromRGBO(248, 80, 50, 0.8),
                               child: Text("Entrar"),
                               onPressed: controller.isFormValid
                                   ? controller.login
                                   : null,
                               textColor: Colors.white,
-                              disabledColor: Colors.deepOrange.withAlpha(140),
+                              disabledColor: Color.fromRGBO(248, 80, 50, 0.5),
                             ),
                           );
                         }),
