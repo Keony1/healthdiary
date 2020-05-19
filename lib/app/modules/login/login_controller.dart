@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:healthdiary/app/shared/auth/auth_controller.dart';
 import 'package:mobx/mobx.dart';
@@ -98,8 +99,12 @@ class _LoginControllerBase with Store {
   @action
   Future login() async {
     loading = true;
-
-    status = await _auth.doLogin(email, password);
-    pushPage(status);
+    try {
+      status = await _auth.doLogin(email, password);
+      pushPage(status);
+    } catch (_) {
+      loading = false;
+      error = "Usuário ou senha incorretos";
+    }
   }
 }

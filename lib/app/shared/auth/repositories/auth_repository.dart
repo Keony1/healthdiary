@@ -26,21 +26,22 @@ class AuthRepository implements IAuthRepository {
           return null;
         }
       });
+
+      return user;
     } catch (error) {
-      switch (error.code) {
-        case 'ERROR_USER_NOT_FOUND':
-          errorMessage = "USUÁRIO NÃO EXISTE";
-          break;
-        default:
-          errorMessage = "NÃO FOI POSSÍVEL AUTENTICAR";
-      }
-    }
+      rethrow;
+      // switch (error.code) {
+      //   case 'ERROR_USER_NOT_FOUND':
+      //     errorMessage = "USUÁRIO NÃO EXISTE";
+      //     break;
+      //   default:
+      //     errorMessage = "NÃO FOI POSSÍVEL AUTENTICAR";
+      // }
 
-    if (errorMessage != null) {
-      Future.error(errorMessage);
+      // if (errorMessage != null) {
+      //   return Future.error(errorMessage);
+      // }
     }
-
-    return user;
   }
 
   @override

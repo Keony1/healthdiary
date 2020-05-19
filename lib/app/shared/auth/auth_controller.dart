@@ -17,17 +17,21 @@ abstract class _AuthControllerBase with Store {
 
   @action
   Future<AuthStatus> doLogin(String newEmail, String newPassword) async {
-    String completedEmail = newEmail + '@healthdiary.com.br';
+    try {
+      String completedEmail = newEmail + '@healthdiary.com.br';
 
-    user = await _repository.getLoginWithEmailAndPassword(
-        completedEmail, newPassword);
+      user = await _repository.getLoginWithEmailAndPassword(
+          completedEmail, newPassword);
 
-    if (user != null) {
-      status = AuthStatus.SUCCESS;
-      return status;
-    } else {
-      status = AuthStatus.FAIL;
-      return status;
+      if (user != null) {
+        status = AuthStatus.SUCCESS;
+        return status;
+      } else {
+        status = AuthStatus.FAIL;
+        return status;
+      }
+    } catch (error) {
+      rethrow;
     }
   }
 
