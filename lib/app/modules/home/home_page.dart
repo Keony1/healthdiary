@@ -2,12 +2,14 @@ import 'package:circle_bottom_navigation/circle_bottom_navigation.dart';
 import 'package:circle_bottom_navigation/widgets/tab_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:healthdiary/app/shared/widgets/meal_tile.dart';
+import 'package:healthdiary/app/modules/home/tabs/meal_feed/meal_feed_module.dart';
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
-  const HomePage({Key key, this.title = "Home"}) : super(key: key);
+  final Map userModel;
+  const HomePage({Key key, this.title = "Home", this.userModel})
+      : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -18,24 +20,8 @@ class _HomePageState extends ModularState<HomePage, HomeController>
   int _page = 0;
 
   List _widgetPages = [
-    ListView.separated(
-      itemCount: 4,
-      itemBuilder: (BuildContext context, int index) {
-        return MealTile(
-          img: 'assets/images/teste.jpg',
-          isFav: false,
-          type: 'Café da Manhã',
-          name: 'Almoço muito bom hojeee banana de pijamas subindo as escadas',
-          raters: 2,
-          rating: 4.0,
-        );
-      },
-      separatorBuilder: (context, index) {
-        return Divider(
-          height: 5,
-          color: Color(0xFFDDDDDD),
-        );
-      },
+    RouterOutlet(
+      module: MealFeedModule(),
     ),
     Container(
       color: Colors.blue,

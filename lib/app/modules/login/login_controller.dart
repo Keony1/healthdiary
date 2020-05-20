@@ -7,7 +7,7 @@ part 'login_controller.g.dart';
 
 class LoginController = _LoginControllerBase with _$LoginController;
 
-class _LoginControllerBase with Store {
+abstract class _LoginControllerBase with Store {
   AuthController _auth = Modular.get();
 
   @observable
@@ -86,9 +86,10 @@ class _LoginControllerBase with Store {
       Map user = await _auth.getUserData();
 
       if (user['role'] == 'client') {
-        Modular.to.pushReplacementNamed("/client");
+        Modular.to.pushNamed("/client", arguments: user);
       } else {
-        Modular.to.pushReplacementNamed("/admin");
+        Modular.to.pushReplacementNamed("/admin",
+            arguments: user); // TODO CRIAR MODEL USER
       }
     } else if (status == AuthStatus.FAIL) {
       await Future.delayed(Duration(seconds: 1));

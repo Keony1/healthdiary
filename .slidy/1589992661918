@@ -1,0 +1,5 @@
+lib/app/modules/home/tabs/meal_feed/meal_feed_module.dart
+lib/app/modules/home/tabs/meal_feed/meal_feed_page.dart
+test/app/modules/home/tabs/meal_feed/meal_feed_page_test.dart
+lib/app/modules/home/tabs/meal_feed/meal_feed_controller.dart
+test/app/modules/home/tabs/meal_feed/meal_feed_controller_test.dart

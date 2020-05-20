@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:healthdiary/app/shared/auth/repositories/auth_repository_interface.dart';
 import 'package:mobx/mobx.dart';

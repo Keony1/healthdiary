@@ -26,6 +26,17 @@ mixin _$LoginController on _LoginControllerBase, Store {
   @override
   bool get isFormValid =>
       (_$isFormValidComputed ??= Computed<bool>(() => super.isFormValid)).value;
+  Computed<String> _$errorEmailComputed;
+
+  @override
+  String get errorEmail =>
+      (_$errorEmailComputed ??= Computed<String>(() => super.errorEmail)).value;
+  Computed<String> _$errorPasswordComputed;
+
+  @override
+  String get errorPassword =>
+      (_$errorPasswordComputed ??= Computed<String>(() => super.errorPassword))
+          .value;
 
   final _$emailAtom = Atom(name: '_LoginControllerBase.email');
 
@@ -95,10 +106,58 @@ mixin _$LoginController on _LoginControllerBase, Store {
     }, _$loadingAtom, name: '${_$loadingAtom.name}_set');
   }
 
+  final _$userAtom = Atom(name: '_LoginControllerBase.user');
+
+  @override
+  Map<dynamic, dynamic> get user {
+    _$userAtom.context.enforceReadPolicy(_$userAtom);
+    _$userAtom.reportObserved();
+    return super.user;
+  }
+
+  @override
+  set user(Map<dynamic, dynamic> value) {
+    _$userAtom.context.conditionallyRunInAction(() {
+      super.user = value;
+      _$userAtom.reportChanged();
+    }, _$userAtom, name: '${_$userAtom.name}_set');
+  }
+
+  final _$statusAtom = Atom(name: '_LoginControllerBase.status');
+
+  @override
+  AuthStatus get status {
+    _$statusAtom.context.enforceReadPolicy(_$statusAtom);
+    _$statusAtom.reportObserved();
+    return super.status;
+  }
+
+  @override
+  set status(AuthStatus value) {
+    _$statusAtom.context.conditionallyRunInAction(() {
+      super.status = value;
+      _$statusAtom.reportChanged();
+    }, _$statusAtom, name: '${_$statusAtom.name}_set');
+  }
+
+  final _$autoLoginAsyncAction = AsyncAction('autoLogin');
+
+  @override
+  Future autoLogin() {
+    return _$autoLoginAsyncAction.run(() => super.autoLogin());
+  }
+
+  final _$pushPageAsyncAction = AsyncAction('pushPage');
+
+  @override
+  Future pushPage(dynamic status) {
+    return _$pushPageAsyncAction.run(() => super.pushPage(status));
+  }
+
   final _$loginAsyncAction = AsyncAction('login');
 
   @override
-  Future login() {
+  Future<dynamic> login() {
     return _$loginAsyncAction.run(() => super.login());
   }
 
@@ -126,9 +185,29 @@ mixin _$LoginController on _LoginControllerBase, Store {
   }
 
   @override
+  void isTappedEmail() {
+    final _$actionInfo = _$_LoginControllerBaseActionController.startAction();
+    try {
+      return super.isTappedEmail();
+    } finally {
+      _$_LoginControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void isTappedPassword() {
+    final _$actionInfo = _$_LoginControllerBaseActionController.startAction();
+    try {
+      return super.isTappedPassword();
+    } finally {
+      _$_LoginControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     final string =
-        'email: ${email.toString()},password: ${password.toString()},error: ${error.toString()},loading: ${loading.toString()},isEmailValid: ${isEmailValid.toString()},isPasswordValid: ${isPasswordValid.toString()},isFormValid: ${isFormValid.toString()}';
+        'email: ${email.toString()},password: ${password.toString()},error: ${error.toString()},loading: ${loading.toString()},user: ${user.toString()},status: ${status.toString()},isEmailValid: ${isEmailValid.toString()},isPasswordValid: ${isPasswordValid.toString()},isFormValid: ${isFormValid.toString()},errorEmail: ${errorEmail.toString()},errorPassword: ${errorPassword.toString()}';
     return '{$string}';
   }
 }

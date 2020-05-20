@@ -50,6 +50,27 @@ mixin _$AuthController on _AuthControllerBase, Store {
     return _$doLoginAsyncAction.run(() => super.doLogin(newEmail, newPassword));
   }
 
+  final _$checkStatusAsyncAction = AsyncAction('checkStatus');
+
+  @override
+  Future checkStatus() {
+    return _$checkStatusAsyncAction.run(() => super.checkStatus());
+  }
+
+  final _$getStatusAsyncAction = AsyncAction('getStatus');
+
+  @override
+  Future<dynamic> getStatus() {
+    return _$getStatusAsyncAction.run(() => super.getStatus());
+  }
+
+  final _$getUserDataAsyncAction = AsyncAction('getUserData');
+
+  @override
+  Future<dynamic> getUserData() {
+    return _$getUserDataAsyncAction.run(() => super.getUserData());
+  }
+
   final _$_AuthControllerBaseActionController =
       ActionController(name: '_AuthControllerBase');
 
