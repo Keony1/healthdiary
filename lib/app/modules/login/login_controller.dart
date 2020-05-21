@@ -83,14 +83,7 @@ abstract class _LoginControllerBase with Store {
   @action
   pushPage(status) async {
     if (status == AuthStatus.SUCCESS) {
-      Map user = await _auth.getUserData();
-
-      if (user['role'] == 'client') {
-        Modular.to.pushNamed("/client", arguments: user);
-      } else {
-        Modular.to.pushReplacementNamed("/admin",
-            arguments: user); // TODO CRIAR MODEL USER
-      }
+      Modular.to.pushReplacementNamed("/home");
     } else if (status == AuthStatus.FAIL) {
       await Future.delayed(Duration(seconds: 1));
       loading = false;
@@ -105,6 +98,8 @@ abstract class _LoginControllerBase with Store {
       pushPage(status);
     } catch (_) {
       loading = false;
+      email = "";
+      password = "";
       error = "Usuário ou senha incorretos";
     }
   }

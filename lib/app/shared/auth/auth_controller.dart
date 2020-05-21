@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:healthdiary/app/shared/auth/repositories/auth_repository_interface.dart';
+import 'package:healthdiary/app/shared/models/User.dart';
 import 'package:mobx/mobx.dart';
 part 'auth_controller.g.dart';
 
@@ -50,9 +52,22 @@ abstract class _AuthControllerBase with Store {
   }
 
   @action
-  Future getUserData() async {
-    Map userData = await _repository.getUser();
-    return userData;
+  Future<User> getUser() async {
+    Map userData = await _repository.getCurrentUser();
+
+    User user = User.fromJson(userData);
+
+    return user;
+  }
+
+  @action
+  Future<List<User>> getAllUsers() async {
+    QuerySnapshot usersDocuments = await _repository.getDocumentsUser();
+
+    List<User> users =
+        usersDocuments.documents.map((doc) => User.fromJson(doc.data)).toList();
+
+    return users;
   }
 
   @action

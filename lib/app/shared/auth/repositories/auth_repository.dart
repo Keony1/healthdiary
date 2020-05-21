@@ -8,7 +8,6 @@ class AuthRepository implements IAuthRepository {
 
   @override
   Future getLoginWithEmailAndPassword(String email, String password) async {
-    String errorMessage;
     Map user;
 
     try {
@@ -30,22 +29,11 @@ class AuthRepository implements IAuthRepository {
       return user;
     } catch (error) {
       rethrow;
-      // switch (error.code) {
-      //   case 'ERROR_USER_NOT_FOUND':
-      //     errorMessage = "USUÁRIO NÃO EXISTE";
-      //     break;
-      //   default:
-      //     errorMessage = "NÃO FOI POSSÍVEL AUTENTICAR";
-      // }
-
-      // if (errorMessage != null) {
-      //   return Future.error(errorMessage);
-      // }
     }
   }
 
   @override
-  Future<Map> getUser() async {
+  Future<Map> getCurrentUser() async {
     var userAuth = await _firebaseAuth.currentUser();
 
     return _firestore
@@ -71,5 +59,17 @@ class AuthRepository implements IAuthRepository {
     }
 
     return null;
+  }
+
+  @override
+  Future getDocumentsUser() {
+    try {
+      Future<QuerySnapshot> usersDocuments =
+          Firestore.instance.collection("users").getDocuments();
+
+      return usersDocuments;
+    } catch (e) {
+      rethrow;
+    }
   }
 }

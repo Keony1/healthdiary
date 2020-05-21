@@ -20,7 +20,7 @@ class AppModule extends MainModule {
   @override
   List<Router> get routers => [
         Router('/', module: LoginModule()),
-        Router('/client', module: HomeModule()),
+        Router('/home', module: HomeModule()),
       ];
 
   @override

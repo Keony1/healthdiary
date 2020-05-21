@@ -12,9 +12,7 @@ class HomeModule extends ChildModule {
   List<Router> get routers => [
         Router(
           Modular.initialRoute,
-          child: (_, args) => HomePage(
-            userModel: args.data,
-          ),
+          child: (_, args) => HomePage(),
         ),
       ];
 

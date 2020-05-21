@@ -1,3 +1,3 @@
 abstract class IMealRepository {
-  Future getMeals(String usuarioId);
+  Future getMealsDocuments(String usuarioId);
 }

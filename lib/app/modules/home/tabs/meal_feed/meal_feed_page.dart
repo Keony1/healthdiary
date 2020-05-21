@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:healthdiary/app/shared/models/Meal.dart';
 import 'package:healthdiary/app/shared/widgets/meal_tile.dart';
 import 'package:mobx/mobx.dart';
 import 'meal_feed_controller.dart';
 
 class MealFeedPage extends StatefulWidget {
   final String title;
-  final Map userModel;
 
-  const MealFeedPage({Key key, this.title = "MealFeed", this.userModel})
-      : super(key: key);
+  const MealFeedPage({Key key, this.title = "MealFeed"}) : super(key: key);
 
   @override
   _MealFeedPageState createState() => _MealFeedPageState();
@@ -21,30 +21,28 @@ class _MealFeedPageState
 
   @override
   void initState() {
-    autorun((_) => controller.getMeals(widget.userModel));
+    autorun((_) => controller.loadMeals());
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      itemCount: 4,
-      itemBuilder: (BuildContext context, int index) {
-        return MealTile(
-          img: 'assets/images/teste.jpg',
-          isFav: false,
-          type: 'Café da Manhã',
-          name: 'Almoço muito bom hojeee banana de pijamas subindo as escadas',
-          raters: 2,
-          rating: 4.0,
-        );
-      },
-      separatorBuilder: (context, index) {
-        return Divider(
-          height: 5,
-          color: Color(0xFFDDDDDD),
-        );
-      },
+    return Observer(
+      builder: (_) => ListView.separated(
+        itemCount: controller.mealsList.length,
+        itemBuilder: (BuildContext context, int index) {
+          return MealTile(
+            meal: controller.mealsList[index],
+            user: controller.currentUser,
+          );
+        },
+        separatorBuilder: (context, index) {
+          return Divider(
+            height: 5,
+            color: Color(0xFFDDDDDD),
+          );
+        },
+      ),
     );
   }
 }

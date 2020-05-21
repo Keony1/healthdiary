@@ -64,11 +64,11 @@ mixin _$AuthController on _AuthControllerBase, Store {
     return _$getStatusAsyncAction.run(() => super.getStatus());
   }
 
-  final _$getUserDataAsyncAction = AsyncAction('getUserData');
+  final _$getUserAsyncAction = AsyncAction('getUser');
 
   @override
-  Future<dynamic> getUserData() {
-    return _$getUserDataAsyncAction.run(() => super.getUserData());
+  Future<User> getUser() {
+    return _$getUserAsyncAction.run(() => super.getUser());
   }
 
   final _$_AuthControllerBaseActionController =

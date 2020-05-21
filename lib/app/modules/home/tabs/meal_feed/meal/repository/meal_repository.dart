@@ -4,7 +4,7 @@ import 'package:healthdiary/app/modules/home/tabs/meal_feed/meal/repository/meal
 
 class MealRepository extends Disposable with IMealRepository {
   @override
-  Future<QuerySnapshot> getMeals(String usuarioId) async {
+  Future<QuerySnapshot> getMealsDocuments(String usuarioId) async {
     try {
       Future<QuerySnapshot> mealsSnapShot = Firestore.instance
           .collection("meals")

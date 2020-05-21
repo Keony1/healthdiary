@@ -13,12 +13,11 @@ abstract class _MealControllerBase with Store {
 
   @action
   Future<List<Meal>> getMeals(String usuarioId) async {
-    QuerySnapshot mealDocuments = await _repository.getMeals(usuarioId);
+    QuerySnapshot mealDocuments =
+        await _repository.getMealsDocuments(usuarioId);
 
     List<Meal> meals =
         mealDocuments.documents.map((doc) => Meal.fromJson(doc.data)).toList();
-
-    print(meals);
 
     return meals;
   }

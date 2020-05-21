@@ -1,25 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:healthdiary/app/shared/models/Meal.dart';
+import 'package:healthdiary/app/shared/models/User.dart';
+import 'package:healthdiary/app/shared/utils/time_formatter.dart';
+import 'package:healthdiary/app/shared/widgets/not_rated_tile.dart';
+import 'package:healthdiary/app/shared/widgets/rated_tile.dart';
 
 class MealTile extends StatelessWidget {
-  final String name;
-  final String img;
-  final bool isFav;
-  final double rating;
-  final int raters;
-  final String type;
+  final Meal meal;
+  final User user;
 
-  MealTile({
-    Key key,
-    @required this.name,
-    @required this.img,
-    @required this.isFav,
-    @required this.rating,
-    @required this.raters,
-    @required this.type,
-  }) : super(key: key);
-
+  const MealTile({Key key, this.meal, this.user}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    var date = DateTime.parse(meal.data.toDate().toString());
+
     return InkWell(
       child: ListView(
         shrinkWrap: true,
@@ -28,15 +22,15 @@ class MealTile extends StatelessWidget {
           ListTile(
             leading: CircleAvatar(
               backgroundColor: Colors.brown.shade800,
-              child: Text('AN'),
+              child: Text(user.nome.substring(0, 2).toUpperCase()),
             ),
             title: Text(
-              'Antônio',
+              user.nome,
               style: TextStyle(fontWeight: FontWeight.w700),
             ),
-            subtitle: Text('25 anos, 80kg.'),
+            subtitle: Text('${user.idade} anos, ${user.peso}kg.'),
             trailing: Text(
-              '12:32',
+              formatTime(date.toUtc().millisecondsSinceEpoch),
               style: TextStyle(color: Colors.grey),
             ),
           ),
@@ -46,124 +40,51 @@ class MealTile extends StatelessWidget {
                 height: MediaQuery.of(context).size.height / 2.5,
                 width: MediaQuery.of(context).size.width,
                 child: ClipRRect(
-                  child: Image.asset(
-                    "$img",
+                  child: Image.network(
+                    meal.images,
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
               Positioned(
-                  left: 5.0,
-                  top: 10.0,
-                  child: RawMaterialButton(
-                    onPressed: () {},
-                    fillColor: Colors.redAccent,
-                    elevation: 1.0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(15),
-                        bottomRight: Radius.circular(15),
-                        topRight: Radius.circular(15),
+                left: 5.0,
+                top: 10.0,
+                child: RawMaterialButton(
+                  onPressed: () {},
+                  fillColor: Colors.redAccent,
+                  elevation: 1.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(15),
+                      bottomRight: Radius.circular(15),
+                      topRight: Radius.circular(15),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(5),
+                    child: Text(
+                      meal.type,
+                      style: TextStyle(
+                        color: Colors.white,
                       ),
                     ),
-                    child: Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Text(
-                        '$type',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  )),
+                  ),
+                ),
+              ),
             ],
           ),
-          ListTile(
-            leading: RawMaterialButton(
-              onPressed: () {},
-              elevation: 1.0,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Icon(
-                    Icons.star,
-                    color: Colors.yellow,
-                  ),
-                  Icon(
-                    Icons.star,
-                    color: Colors.yellow,
-                  ),
-                  Icon(
-                    Icons.star,
-                    color: Colors.yellow,
-                  ),
-                  Icon(
-                    Icons.star,
-                    color: Colors.yellow,
-                  ),
-                  Icon(
-                    Icons.star,
-                    color: Colors.yellow,
-                  ),
-                ],
-              ),
-            ),
-            title: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    Image.asset(
-                      'assets/images/bolt.png',
-                      width: 10,
-                    ),
-                    Text(
-                      '3005',
-                      style: TextStyle(fontSize: 12),
-                    ),
-                  ],
-                ),
-                Column(
-                  children: <Widget>[
-                    Image.asset(
-                      'assets/images/fish.png',
-                      width: 15,
-                    ),
-                    SizedBox(
-                      height: 3,
-                    ),
-                    Text(
-                      '3005',
-                      style: TextStyle(fontSize: 12),
-                    ),
-                  ],
-                ),
-                Column(
-                  children: <Widget>[
-                    Image.asset(
-                      'assets/images/sausage.png',
-                      width: 15,
-                    ),
-                    SizedBox(
-                      height: 3,
-                    ),
-                    Text(
-                      '3005',
-                      style: TextStyle(fontSize: 12),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            trailing: Text(
-              '4000 kcal',
-              style: TextStyle(color: Colors.grey),
-            ),
-          ),
+          meal.rated
+              ? RatedTile(
+                  calories: meal.calories,
+                  prot: meal.prot,
+                  carbs: meal.carb,
+                  fat: meal.fat,
+                  rating: meal.rating,
+                )
+              : NotRatedTile(),
           ListTile(
             title: Text(
-              "$name",
+              meal.title,
               style: TextStyle(
                 fontWeight: FontWeight.w600,
               ),
