@@ -5,11 +5,11 @@ class Meal {
   String images;
   String type;
   String title;
-  double rating;
-  double carb;
-  double prot;
-  double calories;
-  double fat;
+  int rating;
+  int carb;
+  int prot;
+  int calories;
+  int fat;
   bool rated;
   String uid;
   Timestamp data;
@@ -33,7 +33,7 @@ class Meal {
 
     type = json['type'];
     title = json['title'];
-    rating = json['rating'];
+    rating = json['rating'].round();
     carb = json['carb'];
     prot = json['prot'];
     calories = json['calories'];

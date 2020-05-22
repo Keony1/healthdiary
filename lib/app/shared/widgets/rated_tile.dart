@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class RatedTile extends StatelessWidget {
-  final double rating;
-  final double carbs;
-  final double prot;
-  final double fat;
-  final double calories;
+  final int rating;
+  final int carbs;
+  final int prot;
+  final int fat;
+  final int calories;
 
   const RatedTile(
       {Key key, this.rating, this.carbs, this.calories, this.fat, this.prot})
@@ -48,7 +48,7 @@ class RatedTile extends StatelessWidget {
                   width: 10,
                 ),
                 Text(
-                  '3005',
+                  carbs.toString(),
                   style: TextStyle(fontSize: 12),
                 ),
               ],
@@ -63,7 +63,7 @@ class RatedTile extends StatelessWidget {
                   height: 3,
                 ),
                 Text(
-                  '3005',
+                  prot.toString(),
                   style: TextStyle(fontSize: 12),
                 ),
               ],
@@ -78,7 +78,7 @@ class RatedTile extends StatelessWidget {
                   height: 3,
                 ),
                 Text(
-                  '3005',
+                  fat.toString(),
                   style: TextStyle(fontSize: 12),
                 ),
               ],
@@ -86,7 +86,7 @@ class RatedTile extends StatelessWidget {
           ],
         ),
         trailing: Text(
-          '4000 kcal',
+          '${calories.toString()} kcal',
           style: TextStyle(color: Colors.grey),
         ),
       ),

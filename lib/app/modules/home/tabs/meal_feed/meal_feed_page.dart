@@ -27,22 +27,26 @@ class _MealFeedPageState
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) => ListView.separated(
-        itemCount: controller.mealsList.length,
-        itemBuilder: (BuildContext context, int index) {
-          return MealTile(
-            meal: controller.mealsList[index],
-            user: controller.currentUser,
-          );
-        },
-        separatorBuilder: (context, index) {
-          return Divider(
-            height: 5,
-            color: Color(0xFFDDDDDD),
-          );
-        },
-      ),
-    );
+    return Observer(builder: (_) {
+      if (controller.mealsList != null) {
+        return ListView.separated(
+          itemCount: controller.mealsList.length,
+          itemBuilder: (BuildContext context, int index) {
+            return MealTile(
+              meal: controller.mealsList[index],
+              user: controller.currentUser,
+            );
+          },
+          separatorBuilder: (context, index) {
+            return Divider(
+              height: 5,
+              color: Color(0xFFDDDDDD),
+            );
+          },
+        );
+      } else {
+        return Container();
+      }
+    });
   }
 }
