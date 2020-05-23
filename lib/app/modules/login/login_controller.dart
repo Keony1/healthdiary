@@ -1,14 +1,18 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:healthdiary/app/shared/auth/auth_controller.dart';
+import 'package:healthdiary/app/shared/auth/services/firebase/check_status_service.dart';
+import 'package:healthdiary/app/shared/auth/services/firebase/login_service.dart';
 import 'package:mobx/mobx.dart';
+import 'package:healthdiary/app/shared/enums/auth_status.dart';
 
 part 'login_controller.g.dart';
 
 class LoginController = _LoginControllerBase with _$LoginController;
 
 abstract class _LoginControllerBase with Store {
-  AuthController _auth = Modular.get();
+  final LoginService loginService;
+  final CheckStatusService checkStatusService;
+
+  _LoginControllerBase({this.loginService, this.checkStatusService});
 
   @observable
   String email = "";
@@ -75,8 +79,9 @@ abstract class _LoginControllerBase with Store {
   @action
   autoLogin() async {
     loading = true;
-    await _auth.checkStatus();
-    status = await _auth.getStatus();
+
+    status = await checkStatusService.execute();
+
     pushPage(status);
   }
 
@@ -94,7 +99,10 @@ abstract class _LoginControllerBase with Store {
   Future login() async {
     loading = true;
     try {
-      status = await _auth.doLogin(email, password);
+      status = await loginService.execute(
+        newEmail: email,
+        newPassword: password,
+      );
       pushPage(status);
     } catch (_) {
       loading = false;

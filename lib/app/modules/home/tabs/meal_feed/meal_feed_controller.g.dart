@@ -26,6 +26,40 @@ mixin _$MealFeedController on _MealFeedControllerBase, Store {
     }, _$mealsListAtom, name: '${_$mealsListAtom.name}_set');
   }
 
+  final _$usersListAtom = Atom(name: '_MealFeedControllerBase.usersList');
+
+  @override
+  List<User> get usersList {
+    _$usersListAtom.context.enforceReadPolicy(_$usersListAtom);
+    _$usersListAtom.reportObserved();
+    return super.usersList;
+  }
+
+  @override
+  set usersList(List<User> value) {
+    _$usersListAtom.context.conditionallyRunInAction(() {
+      super.usersList = value;
+      _$usersListAtom.reportChanged();
+    }, _$usersListAtom, name: '${_$usersListAtom.name}_set');
+  }
+
+  final _$currentUserAtom = Atom(name: '_MealFeedControllerBase.currentUser');
+
+  @override
+  User get currentUser {
+    _$currentUserAtom.context.enforceReadPolicy(_$currentUserAtom);
+    _$currentUserAtom.reportObserved();
+    return super.currentUser;
+  }
+
+  @override
+  set currentUser(User value) {
+    _$currentUserAtom.context.conditionallyRunInAction(() {
+      super.currentUser = value;
+      _$currentUserAtom.reportChanged();
+    }, _$currentUserAtom, name: '${_$currentUserAtom.name}_set');
+  }
+
   final _$loadMealsAsyncAction = AsyncAction('loadMeals');
 
   @override
@@ -35,7 +69,8 @@ mixin _$MealFeedController on _MealFeedControllerBase, Store {
 
   @override
   String toString() {
-    final string = 'mealsList: ${mealsList.toString()}';
+    final string =
+        'mealsList: ${mealsList.toString()},usersList: ${usersList.toString()},currentUser: ${currentUser.toString()}';
     return '{$string}';
   }
 }

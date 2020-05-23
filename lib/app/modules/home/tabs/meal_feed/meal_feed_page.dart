@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:healthdiary/app/shared/widgets/loading_meal_tile.dart';
-import 'package:healthdiary/app/shared/widgets/meal_tile.dart';
+import 'package:healthdiary/app/modules/home/tabs/meal_feed/widgets/loading_meal_tile.dart';
+import 'package:healthdiary/app/modules/home/tabs/meal_feed/widgets/meal_tile.dart';
 import 'package:mobx/mobx.dart';
 import 'meal_feed_controller.dart';
 

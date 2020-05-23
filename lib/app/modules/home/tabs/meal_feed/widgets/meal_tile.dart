@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:healthdiary/app/modules/home/tabs/meal_feed/widgets/not_rated_tile.dart';
+import 'package:healthdiary/app/modules/home/tabs/meal_feed/widgets/rated_tile.dart';
 import 'package:healthdiary/app/shared/models/Meal.dart';
 import 'package:healthdiary/app/shared/models/User.dart';
 import 'package:healthdiary/app/shared/utils/time_formatter.dart';
-import 'package:healthdiary/app/shared/widgets/not_rated_tile.dart';
-import 'package:healthdiary/app/shared/widgets/rated_tile.dart';
 import 'package:shimmer/shimmer.dart';
 
 class MealTile extends StatelessWidget {

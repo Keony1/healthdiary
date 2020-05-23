@@ -1,0 +1,2 @@
+lib/app/modules/home/tabs/meal_feed/services/teste_service.dart
+test/app/modules/home/tabs/meal_feed/services/teste_service_test.dart

@@ -1,6 +1,6 @@
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:healthdiary/app/modules/home/tabs/meal_feed/meal/meal_controller.dart';
-import 'package:healthdiary/app/shared/auth/auth_controller.dart';
+import 'package:flutter/foundation.dart';
+import 'package:healthdiary/app/modules/home/tabs/meal_feed/services/firebase/get_meals_by_id_service.dart';
+import 'package:healthdiary/app/shared/auth/services/firebase/get_current_user_service.dart';
 import 'package:healthdiary/app/shared/models/Meal.dart';
 import 'package:healthdiary/app/shared/models/User.dart';
 import 'package:mobx/mobx.dart';
@@ -10,8 +10,14 @@ part 'meal_feed_controller.g.dart';
 class MealFeedController = _MealFeedControllerBase with _$MealFeedController;
 
 abstract class _MealFeedControllerBase with Store {
-  MealController _meal = Modular.get();
-  AuthController _auth = Modular.get();
+  final GetMealByIdService getMealByIdService;
+  final GetCurrentUserService getCurrentUserService;
+
+  _MealFeedControllerBase(
+      {@required this.getMealByIdService,
+      @required this.getCurrentUserService}) {
+    loadMeals();
+  }
 
   @observable
   List<Meal> mealsList;
@@ -24,11 +30,13 @@ abstract class _MealFeedControllerBase with Store {
 
   @action
   loadMeals() async {
-    currentUser = await _auth.getUser();
+    currentUser = await getCurrentUserService.execute();
 
-    await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(
+      Duration(milliseconds: 500),
+    );
 
-    mealsList = await _meal.getMeals(currentUser.uid);
+    mealsList = await getMealByIdService.execute(usuarioId: currentUser.uid);
 
     return mealsList;
   }

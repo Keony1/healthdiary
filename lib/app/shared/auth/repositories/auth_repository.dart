@@ -1,26 +1,29 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:healthdiary/app/shared/auth/repositories/auth_repository_interface.dart';
+import 'package:healthdiary/app/shared/auth/repositories/interface/auth_repository_interface.dart';
+import 'package:healthdiary/app/shared/models/User.dart';
 
 class AuthRepository implements IAuthRepository {
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final Firestore _firestore = Firestore.instance;
+  final FirebaseAuth firebaseAuth;
+  final Firestore firestore;
+
+  AuthRepository({this.firebaseAuth, this.firestore});
 
   @override
-  Future getLoginWithEmailAndPassword(String email, String password) async {
-    Map user;
-
+  Future<User> getLoginWithEmailAndPassword(
+      String email, String password) async {
     try {
-      AuthResult result = await _firebaseAuth.signInWithEmailAndPassword(
+      AuthResult result = await firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
 
-      user = await _firestore
+      User user = await firestore
           .collection("users")
           .document(result.user.uid)
           .get()
           .then((doc) {
         if (doc.data != null) {
-          return doc.data;
+          print(doc.data);
+          return User.fromJson(doc.data);
         } else {
           return null;
         }
@@ -34,9 +37,9 @@ class AuthRepository implements IAuthRepository {
 
   @override
   Future<Map> getCurrentUser() async {
-    var userAuth = await _firebaseAuth.currentUser();
+    var userAuth = await firebaseAuth.currentUser();
 
-    return _firestore
+    return firestore
         .collection('users')
         .document(userAuth.uid)
         .get()
@@ -47,12 +50,12 @@ class AuthRepository implements IAuthRepository {
 
   @override
   Future getLogOut() {
-    return _firebaseAuth.signOut();
+    return firebaseAuth.signOut();
   }
 
   @override
   Future checkAuthStatus() async {
-    var currentUser = await FirebaseAuth.instance.currentUser();
+    var currentUser = await firebaseAuth.currentUser();
 
     if (currentUser != null) {
       return currentUser;
@@ -65,7 +68,7 @@ class AuthRepository implements IAuthRepository {
   Future getDocumentsUser() {
     try {
       Future<QuerySnapshot> usersDocuments =
-          Firestore.instance.collection("users").getDocuments();
+          firestore.collection("users").getDocuments();
 
       return usersDocuments;
     } catch (e) {
