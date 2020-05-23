@@ -26,6 +26,10 @@ abstract class _MealFeedControllerBase with Store {
   loadMeals() async {
     currentUser = await _auth.getUser();
 
+    await Future.delayed(Duration(milliseconds: 500));
+
     mealsList = await _meal.getMeals(currentUser.uid);
+
+    return mealsList;
   }
 }

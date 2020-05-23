@@ -32,6 +32,7 @@ dependencies:
   circle_bottom_navigation: ^1.0.4
   medium_clap_flutter: ^0.0.1
   font_awesome_flutter: ^8.8.1
+  cached_network_image: ^2.2.0+1
 
   flutter:
     sdk: flutter

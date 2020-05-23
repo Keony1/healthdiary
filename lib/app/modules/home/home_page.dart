@@ -17,27 +17,16 @@ class _HomePageState extends ModularState<HomePage, HomeController>
     with AutomaticKeepAliveClientMixin {
   int _page = 0;
 
-  List _widgetPages = [
-    RouterOutlet(
-      module: MealFeedModule(),
-    ),
-    Container(
-      color: Colors.blue,
-    ),
-    Container(
-      color: Colors.yellow,
-    ),
-    Container(
-      color: Colors.purple,
-    ),
-    Container(
-      color: Colors.orange,
-    ),
-  ];
-
+  final pageController = PageController();
   @override
   void initState() {
     super.initState();
+  }
+
+  void onPageChanged(int index) {
+    setState(() {
+      _page = index;
+    });
   }
 
   @override
@@ -45,7 +34,27 @@ class _HomePageState extends ModularState<HomePage, HomeController>
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: _appBar(),
-      body: _widgetPages[_page],
+      body: PageView(
+        controller: pageController,
+        children: [
+          RouterOutlet(
+            module: MealFeedModule(),
+          ),
+          Container(
+            color: Colors.orange,
+          ),
+          Container(
+            color: Colors.blue,
+          ),
+          Container(
+            color: Colors.black,
+          ),
+          Container(
+            color: Colors.blue,
+          ),
+        ],
+        onPageChanged: onPageChanged,
+      ),
       bottomNavigationBar: _circleBottomNavigation(),
     );
   }
@@ -81,14 +90,11 @@ class _HomePageState extends ModularState<HomePage, HomeController>
         TabData(icon: Icons.chat),
         TabData(icon: Icons.person),
       ],
-      onTabChangedListener: (index) => setState(
-        () => _page = index,
-      ),
+      onTabChangedListener: (index) => pageController.jumpToPage(index),
     );
   }
 
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 
   @override

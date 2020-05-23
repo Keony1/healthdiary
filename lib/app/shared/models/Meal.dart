@@ -30,10 +30,9 @@ class Meal {
 
   Meal.fromJson(Map<String, dynamic> json) {
     images = json['images'][0];
-
     type = json['type'];
     title = json['title'];
-    rating = json['rating'].round();
+    rating = json['rating'];
     carb = json['carb'];
     prot = json['prot'];
     calories = json['calories'];

@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:healthdiary/app/shared/models/Meal.dart';
 import 'package:healthdiary/app/shared/models/User.dart';
 import 'package:healthdiary/app/shared/utils/time_formatter.dart';
 import 'package:healthdiary/app/shared/widgets/not_rated_tile.dart';
 import 'package:healthdiary/app/shared/widgets/rated_tile.dart';
+import 'package:shimmer/shimmer.dart';
 
 class MealTile extends StatelessWidget {
   final Meal meal;
@@ -40,9 +42,31 @@ class MealTile extends StatelessWidget {
                 height: MediaQuery.of(context).size.height / 2.5,
                 width: MediaQuery.of(context).size.width,
                 child: ClipRRect(
-                  child: Image.network(
-                    meal.images,
-                    fit: BoxFit.cover,
+                  child: CachedNetworkImage(
+                    imageUrl: meal.images,
+                    imageBuilder: (context, imageProvider) => Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                          colorFilter:
+                              ColorFilter.mode(Colors.red, BlendMode.colorBurn),
+                        ),
+                      ),
+                    ),
+                    placeholder: (context, url) => Container(
+                      child: Shimmer.fromColors(
+                        direction: ShimmerDirection.rtl,
+                        period: Duration(seconds: 5),
+                        child: Container(
+                          height: 250,
+                          color: Colors.grey[400],
+                        ),
+                        baseColor: Colors.grey[400],
+                        highlightColor: Colors.grey[100],
+                      ),
+                    ),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
                 ),
               ),
