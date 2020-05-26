@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
-import 'package:healthdiary/app/modules/home/tabs/meal_feed/services/firebase/get_meals_by_id_service.dart';
+import 'package:flutter/material.dart';
+import 'package:healthdiary/app/modules/home/tabs/meal_feed/services/firebase/get_meals.dart';
+import 'package:healthdiary/app/modules/home/tabs/meal_feed/services/firebase/get_reative_meals.dart';
 import 'package:healthdiary/app/shared/auth/services/firebase/get_current_user_service.dart';
 import 'package:healthdiary/app/shared/models/Meal.dart';
 import 'package:healthdiary/app/shared/models/User.dart';
@@ -10,17 +12,17 @@ part 'meal_feed_controller.g.dart';
 class MealFeedController = _MealFeedControllerBase with _$MealFeedController;
 
 abstract class _MealFeedControllerBase with Store {
-  final GetMealByIdService getMealByIdService;
+  final GetMeals getMeals;
   final GetCurrentUserService getCurrentUserService;
+  final GetReativeMeals getReativeMeals;
 
-  _MealFeedControllerBase(
-      {@required this.getMealByIdService,
-      @required this.getCurrentUserService}) {
+  _MealFeedControllerBase({
+    @required this.getMeals,
+    @required this.getCurrentUserService,
+    @required this.getReativeMeals,
+  }) {
     loadMeals();
   }
-
-  @observable
-  List<Meal> mealsList;
 
   @observable
   List<User> usersList;
@@ -28,16 +30,18 @@ abstract class _MealFeedControllerBase with Store {
   @observable
   User currentUser;
 
+  @observable
+  List<Meal> mealsList;
+
+  @observable
+  ObservableStream<List<Meal>> reativeMealsList;
+
   @action
   loadMeals() async {
-    currentUser = await getCurrentUserService.execute();
+    reativeMealsList = getReativeMeals.execute().asObservable();
 
-    await Future.delayed(
-      Duration(milliseconds: 500),
-    );
+    mealsList = await getMeals.execute().asObservable();
 
-    mealsList = await getMealByIdService.execute(usuarioId: currentUser.uid);
-
-    return mealsList;
+    return reativeMealsList;
   }
 }

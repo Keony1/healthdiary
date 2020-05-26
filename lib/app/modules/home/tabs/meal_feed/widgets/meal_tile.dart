@@ -24,7 +24,9 @@ class MealTile extends StatelessWidget {
           ListTile(
             leading: CircleAvatar(
               backgroundColor: Colors.brown.shade800,
-              child: Text(user.nome.substring(0, 2).toUpperCase()),
+              child: Text(
+                user.nome.substring(0, 2).toUpperCase(),
+              ),
             ),
             title: Text(
               user.nome,

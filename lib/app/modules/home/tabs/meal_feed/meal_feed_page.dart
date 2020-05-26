@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:healthdiary/app/modules/home/tabs/meal_feed/widgets/loading_meal_tile.dart';
 import 'package:healthdiary/app/modules/home/tabs/meal_feed/widgets/meal_tile.dart';
+import 'package:healthdiary/app/shared/models/Meal.dart';
 import 'package:mobx/mobx.dart';
 import 'meal_feed_controller.dart';
 
@@ -19,41 +20,22 @@ class _MealFeedPageState extends ModularState<MealFeedPage, MealFeedController>
     with AutomaticKeepAliveClientMixin<MealFeedPage> {
   @override
   void initState() {
-    autorun((_) => controller.loadMeals());
     super.initState();
   }
 
   Future<Null> _refreshPage() async {
-    setState(() => controller.mealsList = null);
+    // setState(() => controller.mealsList = null);
 
-    controller.loadMeals().then((mealsList) {
-      setState(() => controller.mealsList = mealsList);
-    });
+    // controller.loadMeals().then((mealsList) {
+    //   setState(() => controller.mealsList = mealsList);
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) {
-        if (controller.mealsList != null) {
-          return RefreshIndicator(
-              child: ListView.separated(
-                itemCount: controller.mealsList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return MealTile(
-                    meal: controller.mealsList[index],
-                    user: controller.currentUser,
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return Divider(
-                    height: 5,
-                    color: Color(0xFFDDDDDD),
-                  );
-                },
-              ),
-              onRefresh: _refreshPage);
-        } else {
+        if (controller.mealsList == null) {
           return ListView.separated(
             itemCount: 5,
             itemBuilder: (BuildContext context, int index) {
@@ -67,6 +49,26 @@ class _MealFeedPageState extends ModularState<MealFeedPage, MealFeedController>
             },
           );
         }
+
+        List<Meal> list = controller.mealsList;
+
+        return RefreshIndicator(
+          child: ListView.separated(
+            itemCount: list.length,
+            itemBuilder: (BuildContext context, int index) {
+              return MealTile(
+                meal: list[index],
+              );
+            },
+            separatorBuilder: (context, index) {
+              return Divider(
+                height: 5,
+                color: Color(0xFFDDDDDD),
+              );
+            },
+          ),
+          onRefresh: _refreshPage,
+        );
       },
     );
   }

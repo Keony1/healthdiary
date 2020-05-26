@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:healthdiary/app/modules/home/tabs/meal_feed/repository/interfaces/meals_repository_interface.dart';
 
@@ -8,20 +7,24 @@ class MealsRepository extends Disposable with IMealsRepository {
 
   MealsRepository({this.firestore});
 
-  Future<QuerySnapshot> getMealsById({@required String usuarioId}) async {
-    try {
-      Future<QuerySnapshot> mealsSnapShot = firestore
-          .collection("meals")
-          .where("uid", isEqualTo: usuarioId)
-          .getDocuments();
-
-      return mealsSnapShot;
-    } catch (e) {
-      rethrow;
-    }
+  @override
+  Future<QuerySnapshot> getFutureMeals() {
+    return firestore.collection("meals").getDocuments();
   }
 
-  //dispose will be called automatically
+  @override
+  Stream<QuerySnapshot> getStreamMeals() {
+    return firestore.collection('meals').snapshots();
+  }
+
+  @override
+  Future<QuerySnapshot> getComments({String documentId}) async {
+    return await firestore
+        .collection("meals")
+        .document(documentId)
+        .collection('comments')
+        .getDocuments();
+  }
 
   @override
   void dispose() {}
