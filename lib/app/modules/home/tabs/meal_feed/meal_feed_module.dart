@@ -3,9 +3,10 @@ import 'package:healthdiary/app/modules/home/tabs/meal_feed/meal_feed_controller
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:healthdiary/app/modules/home/tabs/meal_feed/meal_feed_page.dart';
 import 'package:healthdiary/app/modules/home/tabs/meal_feed/repository/meals_repository.dart';
-import 'package:healthdiary/app/modules/home/tabs/meal_feed/services/firebase/get_meals.dart';
-import 'package:healthdiary/app/modules/home/tabs/meal_feed/services/firebase/get_reative_meals.dart';
+import 'package:healthdiary/app/modules/home/tabs/meal_feed/services/firebase/get_meals_service.dart';
+import 'package:healthdiary/app/modules/home/tabs/meal_feed/services/firebase/get_reative_meals_service.dart';
 import 'package:healthdiary/app/shared/auth/repositories/auth_repository.dart';
+import 'package:healthdiary/app/shared/auth/services/firebase/get_all_users_service.dart';
 import 'package:healthdiary/app/shared/auth/services/firebase/get_current_user_service.dart';
 
 class MealFeedModule extends ChildModule {
@@ -22,21 +23,26 @@ class MealFeedModule extends ChildModule {
           (i) => MealsRepository(firestore: Firestore.instance),
         ),
         Bind(
-          (i) => GetMeals(
+          (i) => GetMealsService(
             mealsRepository: i.get<MealsRepository>(),
           ),
         ),
         Bind(
-          (i) => GetReativeMeals(
+          (i) => GetReativeMealsService(
             mealsRepository: i.get<MealsRepository>(),
+          ),
+        ),
+        Bind(
+          (i) => GetAllUsersService(
+            authRepository: i.get<AuthRepository>(),
           ),
         ),
         Bind(
           (i) => MealFeedController(
-            getMeals: i.get<GetMeals>(),
-            getCurrentUserService: i.get<GetCurrentUserService>(),
-            getReativeMeals: i.get<GetReativeMeals>(),
-          ),
+              getMealsService: i.get<GetMealsService>(),
+              getCurrentUserService: i.get<GetCurrentUserService>(),
+              getReativeMealsService: i.get<GetReativeMealsService>(),
+              getAllUsersService: i.get<GetAllUsersService>()),
         ),
       ];
 

@@ -4,35 +4,22 @@ import 'package:healthdiary/app/modules/home/tabs/meal_feed/repository/meals_rep
 import 'package:healthdiary/app/shared/models/Comment.dart';
 import 'package:healthdiary/app/shared/models/Meal.dart';
 
-class GetMeals extends Disposable {
+class GetMealsService extends Disposable {
   final MealsRepository mealsRepository;
 
-  GetMeals({this.mealsRepository});
+  GetMealsService({this.mealsRepository});
 
   Future<List<Meal>> execute() async {
     QuerySnapshot mealDocuments = await mealsRepository.getFutureMeals();
     List<Comment> listComment;
     List<Meal> listMeals = List<Meal>();
+    var documentsReversed = mealDocuments.documents.reversed;
 
-    // var data = mealDocuments.documents.map((doc) async {
-    //   final data = doc.data;
-
-    //   QuerySnapshot comments =
-    //       await mealsRepository.getComments(documentId: doc.documentID);
-
-    //   if (comments.documents != null) {
-    //     listComment = comments.documents
-    //         .map((commentDoc) => Comment.fromJson(commentDoc.data))
-    //         .toList();
-
-    //     data['comments'] = listComment;
-    //   }
-
-    //   return Meal.fromJson(data);
-    // }).toList();
-
-    for (var doc in mealDocuments.documents) {
+    for (var doc in documentsReversed) {
       final data = doc.data;
+
+      data['documentId'] = doc.documentID;
+
       QuerySnapshot comments =
           await mealsRepository.getComments(documentId: doc.documentID);
 

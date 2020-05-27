@@ -65,10 +65,10 @@ class AuthRepository implements IAuthRepository {
   }
 
   @override
-  Future getDocumentsUser() {
+  Future<QuerySnapshot> getDocumentsUser() async {
     try {
-      Future<QuerySnapshot> usersDocuments =
-          firestore.collection("users").getDocuments();
+      QuerySnapshot usersDocuments =
+          await firestore.collection("users").getDocuments();
 
       return usersDocuments;
     } catch (e) {

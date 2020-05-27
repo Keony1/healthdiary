@@ -2,19 +2,25 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:healthdiary/app/modules/home/tabs/meal_feed/widgets/not_rated_tile.dart';
 import 'package:healthdiary/app/modules/home/tabs/meal_feed/widgets/rated_tile.dart';
-import 'package:healthdiary/app/shared/models/Meal.dart';
-import 'package:healthdiary/app/shared/models/User.dart';
 import 'package:healthdiary/app/shared/utils/time_formatter.dart';
 import 'package:shimmer/shimmer.dart';
 
 class MealTile extends StatelessWidget {
-  final Meal meal;
-  final User user;
+  final card;
 
-  const MealTile({Key key, this.meal, this.user}) : super(key: key);
+  const MealTile({Key key, this.card}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    var date = DateTime.parse(meal.data.toDate().toString());
+    var date = DateTime.parse(card['data'].toDate().toString());
+    String message;
+
+    if (card['comments'].length == 0) {
+      message = 'Não há comentários';
+    } else if (card['comments'].length == 1) {
+      message = 'Ver comentário';
+    } else {
+      message = 'Ver todos os ${card['comments'].length} comentários';
+    }
 
     return InkWell(
       child: ListView(
@@ -25,14 +31,15 @@ class MealTile extends StatelessWidget {
             leading: CircleAvatar(
               backgroundColor: Colors.brown.shade800,
               child: Text(
-                user.nome.substring(0, 2).toUpperCase(),
+                card['user']['nome'].substring(0, 2).toUpperCase(),
               ),
             ),
             title: Text(
-              user.nome,
+              card['user']['nome'],
               style: TextStyle(fontWeight: FontWeight.w700),
             ),
-            subtitle: Text('${user.idade} anos, ${user.peso}kg.'),
+            subtitle: Text(
+                '${card['user']['idade']} anos, ${card['user']['peso']}kg.'),
             trailing: Text(
               formatTime(date.toUtc().millisecondsSinceEpoch),
               style: TextStyle(color: Colors.grey),
@@ -45,7 +52,7 @@ class MealTile extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 child: ClipRRect(
                   child: CachedNetworkImage(
-                    imageUrl: meal.images,
+                    imageUrl: card['images'],
                     imageBuilder: (context, imageProvider) => Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
@@ -89,7 +96,7 @@ class MealTile extends StatelessWidget {
                   child: Padding(
                     padding: EdgeInsets.all(5),
                     child: Text(
-                      meal.type,
+                      card['type'],
                       style: TextStyle(
                         color: Colors.white,
                       ),
@@ -99,18 +106,18 @@ class MealTile extends StatelessWidget {
               ),
             ],
           ),
-          meal.rated
+          card['rated']
               ? RatedTile(
-                  calories: meal.calories,
-                  prot: meal.prot,
-                  carbs: meal.carb,
-                  fat: meal.fat,
-                  rating: meal.rating,
+                  calories: card['calories'],
+                  prot: card['prot'],
+                  carbs: card['carb'],
+                  fat: card['fat'],
+                  rating: card['rating'],
                 )
               : NotRatedTile(),
           ListTile(
             title: Text(
-              meal.title,
+              card['title'],
               style: TextStyle(
                 fontWeight: FontWeight.w600,
               ),
@@ -123,7 +130,7 @@ class MealTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  'Ver todos os 20 comentários',
+                  message,
                   style: TextStyle(
                     color: Colors.grey,
                   ),

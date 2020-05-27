@@ -9,7 +9,7 @@ class MealsRepository extends Disposable with IMealsRepository {
 
   @override
   Future<QuerySnapshot> getFutureMeals() {
-    return firestore.collection("meals").getDocuments();
+    return firestore.collection("meals").orderBy('data').getDocuments();
   }
 
   @override

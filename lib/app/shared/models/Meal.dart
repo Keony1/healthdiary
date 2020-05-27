@@ -15,10 +15,12 @@ class Meal {
   bool rated;
   String uid;
   Timestamp data;
-  List<Comment> comment;
+  List<Comment> comments;
+  String documentId;
 
   Meal(
       {this.images,
+      @required documentId,
       @required this.type,
       @required this.title,
       this.rating,
@@ -29,7 +31,7 @@ class Meal {
       this.rated,
       this.uid,
       this.data,
-      this.comment});
+      this.comments});
 
   Meal.fromJson(Map<String, dynamic> json) {
     images = json['images'][0];
@@ -43,7 +45,8 @@ class Meal {
     uid = json['uid'];
     data = json['data'];
     fat = json['fat'];
-    comment = json['comment'];
+    comments = json['comments'];
+    documentId = json['documentId'];
   }
 
   Map<String, dynamic> toJson() {
@@ -59,7 +62,8 @@ class Meal {
     data['uid'] = this.uid;
     data['data'] = this.data;
     data['fat'] = this.fat;
-    data['comment'] = this.comment;
+    data['comments'] = this.comments.map((comment) => comment.toJson());
+    data['documentId'] = this.documentId;
 
     return data;
   }
