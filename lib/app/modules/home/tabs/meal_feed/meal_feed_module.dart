@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:healthdiary/app/modules/home/tabs/meal_feed/meal_feed_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:healthdiary/app/modules/home/tabs/meal_feed/meal_feed_page.dart';
@@ -12,6 +13,11 @@ import 'package:healthdiary/app/shared/auth/services/firebase/get_current_user_s
 class MealFeedModule extends ChildModule {
   @override
   List<Bind> get binds => [
+        Bind(
+          (i) => AuthRepository(
+              firestore: Firestore.instance,
+              firebaseAuth: FirebaseAuth.instance),
+        ),
         Bind(
           (i) => GetCurrentUserService(
             authRepository: AuthRepository(

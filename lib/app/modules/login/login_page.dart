@@ -96,22 +96,29 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: <Widget>[
                                 Observer(builder: (_) {
-                                  return InputField(
-                                    icon: Icons.person_outline,
-                                    hint: "Login",
-                                    onChanged: controller.setEmail,
-                                    errorText: controller.errorEmail,
-                                    onTap: controller.isTappedEmail,
+                                  return ListTile(
+                                    leading: Icon(Icons.person_outline),
+                                    title: InputField(
+                                      hint: "Login",
+                                      onChanged: controller.setEmail,
+                                      errorText: controller.errorEmail,
+                                      onTap: controller.isTappedEmail,
+                                    ),
                                   );
                                 }),
+                                SizedBox(
+                                  height: 10,
+                                ),
                                 Observer(builder: (_) {
-                                  return InputField(
-                                    icon: Icons.lock_outline,
-                                    hint: "Senha",
-                                    obscure: true,
-                                    onChanged: controller.setPassword,
-                                    errorText: controller.errorPassword,
-                                    onTap: controller.isTappedPassword,
+                                  return ListTile(
+                                    leading: Icon(Icons.lock_outline),
+                                    title: InputField(
+                                      hint: "Senha",
+                                      obscure: true,
+                                      onChanged: controller.setPassword,
+                                      errorText: controller.errorPassword,
+                                      onTap: controller.isTappedPassword,
+                                    ),
                                   );
                                 }),
                                 Observer(

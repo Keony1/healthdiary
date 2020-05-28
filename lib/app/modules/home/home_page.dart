@@ -1,8 +1,8 @@
-import 'package:circle_bottom_navigation/circle_bottom_navigation.dart';
 import 'package:circle_bottom_navigation/widgets/tab_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:healthdiary/app/modules/home/tabs/meal_feed/meal_feed_module.dart';
+import 'package:healthdiary/app/modules/home/widgets/custom_circle_bottom_navigation.dart';
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -41,10 +41,10 @@ class _HomePageState extends ModularState<HomePage, HomeController>
             module: MealFeedModule(),
           ),
           Container(
-            color: Colors.orange,
+            color: Colors.yellow,
           ),
           Container(
-            color: Colors.blue,
+            color: Colors.green,
           ),
           Container(
             color: Colors.black,
@@ -78,19 +78,34 @@ class _HomePageState extends ModularState<HomePage, HomeController>
   }
 
   _circleBottomNavigation() {
-    return CircleBottomNavigation(
+    return CustomCircleBottomNavigation(
       initialSelection: _page,
       circleColor: Colors.redAccent,
+      indexWithNoAnimation: 2,
       textColor: Colors.redAccent,
       inactiveIconColor: Colors.redAccent,
       tabs: [
         TabData(icon: Icons.home),
         TabData(icon: Icons.show_chart),
-        TabData(icon: Icons.add_circle_outline),
+        TabData(icon: Icons.add),
         TabData(icon: Icons.chat),
         TabData(icon: Icons.person),
       ],
-      onTabChangedListener: (index) => pageController.jumpToPage(index),
+      onTabChangedListener: (index) async {
+        switch (index) {
+          case 2:
+            controller.pushToAddMealPage();
+            break;
+          default:
+            pageController.animateToPage(
+              index,
+              duration: Duration(
+                milliseconds: 500,
+              ),
+              curve: Curves.ease,
+            );
+        }
+      },
     );
   }
 

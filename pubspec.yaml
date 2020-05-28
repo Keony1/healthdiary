@@ -33,6 +33,8 @@ dependencies:
   medium_clap_flutter: ^0.0.1
   font_awesome_flutter: ^8.8.1
   cached_network_image: ^2.2.0+1
+  image_picker: ^0.6.1
+  image_cropper: ^1.0.2
 
   flutter:
     sdk: flutter
