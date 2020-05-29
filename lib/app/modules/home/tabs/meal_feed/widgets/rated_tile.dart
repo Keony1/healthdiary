@@ -2,14 +2,8 @@ import 'package:flutter/material.dart';
 
 class RatedTile extends StatelessWidget {
   final int rating;
-  final int carbs;
-  final int prot;
-  final int fat;
-  final int calories;
 
-  const RatedTile(
-      {Key key, this.rating, this.carbs, this.calories, this.fat, this.prot})
-      : super(key: key);
+  const RatedTile({Key key, this.rating}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,57 +31,12 @@ class RatedTile extends StatelessWidget {
             ),
           ),
         ),
-        title: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                Image.asset(
-                  'assets/images/bolt.png',
-                  width: 10,
-                ),
-                Text(
-                  carbs.toString(),
-                  style: TextStyle(fontSize: 12),
-                ),
-              ],
-            ),
-            Column(
-              children: <Widget>[
-                Image.asset(
-                  'assets/images/fish.png',
-                  width: 15,
-                ),
-                SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  prot.toString(),
-                  style: TextStyle(fontSize: 12),
-                ),
-              ],
-            ),
-            Column(
-              children: <Widget>[
-                Image.asset(
-                  'assets/images/sausage.png',
-                  width: 15,
-                ),
-                SizedBox(
-                  height: 3,
-                ),
-                Text(
-                  fat.toString(),
-                  style: TextStyle(fontSize: 12),
-                ),
-              ],
-            ),
-          ],
-        ),
         trailing: Text(
-          '${calories.toString()} kcal',
-          style: TextStyle(color: Colors.grey),
+          'Avaliado por Paulo',
+          style: TextStyle(
+            fontSize: 14,
+            color: Colors.grey[600],
+          ),
         ),
       ),
     );

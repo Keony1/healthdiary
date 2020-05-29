@@ -1,5 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:healthdiary/app/modules/home/tabs/meal_feed/repository/meals_repository.dart';
+import 'package:healthdiary/app/shared/meal/repository/meals_repository.dart';
 import 'package:healthdiary/app/shared/models/Meal.dart';
 
 class GetReativeMealsService extends Disposable {

@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:healthdiary/app/modules/home/tabs/meal_feed/services/firebase/get_meals_service.dart';
-import 'package:healthdiary/app/modules/home/tabs/meal_feed/services/firebase/get_reative_meals_service.dart';
 import 'package:healthdiary/app/shared/auth/services/firebase/get_all_users_service.dart';
 import 'package:healthdiary/app/shared/auth/services/firebase/get_current_user_service.dart';
+import 'package:healthdiary/app/shared/meal/services/firebase/get_meals_service.dart';
+import 'package:healthdiary/app/shared/meal/services/firebase/get_reative_meals_service.dart';
 import 'package:healthdiary/app/shared/models/Meal.dart';
 import 'package:healthdiary/app/shared/models/User.dart';
 import 'package:mobx/mobx.dart';
@@ -22,6 +22,7 @@ abstract class _MealFeedControllerBase with Store {
       @required this.getCurrentUserService,
       @required this.getReativeMealsService,
       @required this.getAllUsersService}) {
+    getUser();
     loadMeals();
     checkForUpdates();
   }
@@ -40,6 +41,11 @@ abstract class _MealFeedControllerBase with Store {
 
   @observable
   ObservableStream<List<Meal>> reativeMealsList;
+
+  @action
+  getUser() async {
+    currentUser = await getCurrentUserService.execute();
+  }
 
   @action
   checkForUpdates() {

@@ -9,9 +9,7 @@ class GetCurrentUserService extends Disposable {
   GetCurrentUserService({@required this.authRepository});
 
   Future<User> execute() async {
-    Map userData = await authRepository.getCurrentUser();
-
-    User user = User.fromJson(userData);
+    User user = await authRepository.getCurrentUser();
 
     return user;
   }

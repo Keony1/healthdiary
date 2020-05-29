@@ -36,7 +36,7 @@ class AuthRepository implements IAuthRepository {
   }
 
   @override
-  Future<Map> getCurrentUser() async {
+  Future<User> getCurrentUser() async {
     var userAuth = await firebaseAuth.currentUser();
 
     return firestore
@@ -44,7 +44,7 @@ class AuthRepository implements IAuthRepository {
         .document(userAuth.uid)
         .get()
         .then((doc) {
-      return doc.data;
+      return User.fromJson(doc.data);
     });
   }
 

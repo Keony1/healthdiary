@@ -4,4 +4,5 @@ abstract class IMealsRepository {
   Future<QuerySnapshot> getFutureMeals();
   Stream<QuerySnapshot> getStreamMeals();
   Future<QuerySnapshot> getComments();
+  Future<String> uploadImage();
 }

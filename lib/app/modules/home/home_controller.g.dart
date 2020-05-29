@@ -16,6 +16,13 @@ mixin _$HomeController on _HomeControllerBase, Store {
     return _$logoffAsyncAction.run(() => super.logoff());
   }
 
+  final _$pushToAddMealPageAsyncAction = AsyncAction('pushToAddMealPage');
+
+  @override
+  Future pushToAddMealPage() {
+    return _$pushToAddMealPageAsyncAction.run(() => super.pushToAddMealPage());
+  }
+
   @override
   String toString() {
     final string = '';

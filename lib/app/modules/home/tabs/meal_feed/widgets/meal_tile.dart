@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:healthdiary/app/modules/home/tabs/meal_feed/widgets/not_rated_tile.dart';
 import 'package:healthdiary/app/modules/home/tabs/meal_feed/widgets/rated_tile.dart';
 import 'package:healthdiary/app/shared/utils/time_formatter.dart';
+import 'package:rating_dialog/rating_dialog.dart';
 import 'package:shimmer/shimmer.dart';
 
 class MealTile extends StatelessWidget {
   final card;
+  final currentUser;
 
-  const MealTile({Key key, this.card}) : super(key: key);
+  const MealTile({Key key, this.card, this.currentUser}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     var date = DateTime.parse(card['data'].toDate().toString());
@@ -20,6 +22,38 @@ class MealTile extends StatelessWidget {
       message = 'Ver comentário';
     } else {
       message = 'Ver todos os ${card['comments'].length} comentários';
+    }
+
+    void _showDialog() {
+      showDialog(
+        context: context,
+        barrierDismissible: true, // set to false if you want to force a rating
+        builder: (context) {
+          return RatingDialog(
+            icon: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+              ),
+              width: 100,
+              child: Image.asset('assets/images/platefood.png'),
+            ), // set your own image/icon widget
+            title: "Avaliação de prato",
+            description:
+                "Sua nota é muito importante para a satisfação dos usuários.",
+            submitButton: "Enviar",
+
+            accentColor: Colors.red, // optional
+            onSubmitPressed: (int rating) {
+              print("onSubmitPressed: rating = $rating");
+              // TODO: open the app's page on Google Play / Apple App Store
+            },
+            onAlternativePressed: () {
+              print("onAlternativePressed: do something");
+              // TODO: maybe you want the user to contact you instead of rating a bad review
+            },
+          );
+        },
+      );
     }
 
     return InkWell(
@@ -108,13 +142,21 @@ class MealTile extends StatelessWidget {
           ),
           card['rated']
               ? RatedTile(
-                  calories: card['calories'],
-                  prot: card['prot'],
-                  carbs: card['carb'],
-                  fat: card['fat'],
                   rating: card['rating'],
                 )
-              : NotRatedTile(),
+              : currentUser.role == 'admin'
+                  ? Padding(
+                      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                      child: FlatButton(
+                        color: Colors.redAccent,
+                        onPressed: _showDialog,
+                        child: Text(
+                          'Avaliar prato',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    )
+                  : NotRatedTile(),
           ListTile(
             title: Text(
               card['title'],
