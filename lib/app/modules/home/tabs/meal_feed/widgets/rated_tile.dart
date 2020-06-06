@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 
 class RatedTile extends StatelessWidget {
   final int rating;
+  final String nutriName;
 
-  const RatedTile({Key key, this.rating}) : super(key: key);
-
+  const RatedTile({Key key, this.rating, this.nutriName}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    print(this.nutriName);
     return Container(
       color: Colors.grey[200],
       child: ListTile(
@@ -32,7 +33,7 @@ class RatedTile extends StatelessWidget {
           ),
         ),
         trailing: Text(
-          'Avaliado por Paulo',
+          "Avaliado por $nutriName",
           style: TextStyle(
             fontSize: 14,
             color: Colors.grey[600],

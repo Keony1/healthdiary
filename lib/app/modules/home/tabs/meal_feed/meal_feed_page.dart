@@ -89,9 +89,9 @@ class _MealFeedPageState extends ModularState<MealFeedPage, MealFeedController>
                           )
                         : Container(),
                     MealTile(
-                      card: list[index],
-                      currentUser: controller.currentUser,
-                    ),
+                        card: list[index],
+                        currentUser: controller.currentUser,
+                        sendRate: controller.saveRate),
                     index == list.length - 1
                         ? Column(
                             children: <Widget>[

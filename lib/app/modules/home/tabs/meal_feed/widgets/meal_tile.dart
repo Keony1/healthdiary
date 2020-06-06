@@ -9,10 +9,14 @@ import 'package:shimmer/shimmer.dart';
 class MealTile extends StatelessWidget {
   final card;
   final currentUser;
+  final Function sendRate;
 
-  const MealTile({Key key, this.card, this.currentUser}) : super(key: key);
+  const MealTile({Key key, this.card, this.currentUser, this.sendRate})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
+    print(card);
+
     var date = DateTime.parse(card['data'].toDate().toString());
     String message;
 
@@ -45,6 +49,7 @@ class MealTile extends StatelessWidget {
             accentColor: Colors.red, // optional
             onSubmitPressed: (int rating) {
               print("onSubmitPressed: rating = $rating");
+              sendRate(rating, card['documentId']);
               // TODO: open the app's page on Google Play / Apple App Store
             },
             onAlternativePressed: () {
@@ -143,6 +148,7 @@ class MealTile extends StatelessWidget {
           card['rated']
               ? RatedTile(
                   rating: card['rating'],
+                  nutriName: card['nutriName'],
                 )
               : currentUser.role == 'admin'
                   ? Padding(
