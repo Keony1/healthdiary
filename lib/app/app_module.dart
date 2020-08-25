@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:healthdiary/app/app_widget.dart';
 import 'package:healthdiary/app/modules/add_meal/add_meal_module.dart';
 import 'package:healthdiary/app/modules/home/home_module.dart';
+import 'package:healthdiary/app/modules/register/register_module.dart';
 
 import 'modules/login/login_module.dart';
 
@@ -14,10 +15,11 @@ class AppModule extends MainModule {
       ];
 
   @override
-  List<Router> get routers => [
-        Router('/', module: LoginModule()),
-        Router('/home', module: HomeModule()),
-        Router('/add_meal', module: AddMealModule()),
+  List<ModularRouter> get routers => [
+        ModularRouter('/', module: LoginModule()),
+        ModularRouter('/home', module: HomeModule()),
+        ModularRouter('/add_meal', module: AddMealModule()),
+        ModularRouter('/register', module: RegisterModule()),
       ];
 
   @override
