@@ -45,8 +45,12 @@ class MealsRepository extends Disposable with IMealsRepository {
     return downloadUrl;
   }
 
-  Future<bool> uploadData({Map data}) async {
+  Future<bool> uploadData({Map data, String meal}) async {
     try {
+      if (meal != null) {
+        await firestore.collection('meals').document(meal).updateData(data);
+        return true;
+      }
       await firestore.collection("meals").add(Map.from(data));
       return true;
     } catch (e) {

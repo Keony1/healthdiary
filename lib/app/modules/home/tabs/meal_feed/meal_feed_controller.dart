@@ -1,9 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:healthdiary/app/shared/auth/services/firebase/get_all_users_service.dart';
 import 'package:healthdiary/app/shared/auth/services/firebase/get_current_user_service.dart';
 import 'package:healthdiary/app/shared/meal/services/firebase/get_meals_service.dart';
 import 'package:healthdiary/app/shared/meal/services/firebase/get_reative_meals_service.dart';
+import 'package:healthdiary/app/shared/meal/services/firebase/upload_meal_service.dart';
 import 'package:healthdiary/app/shared/models/Meal.dart';
 import 'package:healthdiary/app/shared/models/User.dart';
 import 'package:mobx/mobx.dart';
@@ -17,11 +19,14 @@ abstract class _MealFeedControllerBase with Store {
   final GetCurrentUserService getCurrentUserService;
   final GetReativeMealsService getReativeMealsService;
   final GetAllUsersService getAllUsersService;
+  final UploadMealService uploadMealService;
+
   _MealFeedControllerBase(
       {@required this.getMealsService,
       @required this.getCurrentUserService,
       @required this.getReativeMealsService,
-      @required this.getAllUsersService}) {
+      @required this.getAllUsersService,
+      @required this.uploadMealService}) {
     getUser();
     loadMeals();
     checkForUpdates();
@@ -50,6 +55,17 @@ abstract class _MealFeedControllerBase with Store {
   @action
   checkForUpdates() {
     reativeMealsList = getReativeMealsService.execute().asObservable();
+  }
+
+  @action
+  saveRate(int rating, String documentId) async {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['rating'] = rating;
+    data['rated'] = true;
+    data['nutriName'] = currentUser.nome;
+
+    await uploadMealService.execute(data: data, meal: documentId);
+    Modular.to.pushReplacementNamed(Modular.actualRoute);
   }
 
   @action

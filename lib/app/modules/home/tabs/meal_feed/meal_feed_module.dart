@@ -9,6 +9,7 @@ import 'package:healthdiary/app/shared/auth/services/firebase/get_current_user_s
 import 'package:healthdiary/app/shared/meal/repository/meals_repository.dart';
 import 'package:healthdiary/app/shared/meal/services/firebase/get_meals_service.dart';
 import 'package:healthdiary/app/shared/meal/services/firebase/get_reative_meals_service.dart';
+import 'package:healthdiary/app/shared/meal/services/firebase/upload_meal_service.dart';
 
 class MealFeedModule extends ChildModule {
   @override
@@ -23,6 +24,11 @@ class MealFeedModule extends ChildModule {
         ),
         Bind(
           (i) => MealsRepository(firestore: Firestore.instance),
+        ),
+        Bind(
+          (i) => UploadMealService(
+            mealsRepository: i.get<MealsRepository>(),
+          ),
         ),
         Bind(
           (i) => GetMealsService(
@@ -41,10 +47,12 @@ class MealFeedModule extends ChildModule {
         ),
         Bind(
           (i) => MealFeedController(
-              getMealsService: i.get<GetMealsService>(),
-              getCurrentUserService: i.get<GetCurrentUserService>(),
-              getReativeMealsService: i.get<GetReativeMealsService>(),
-              getAllUsersService: i.get<GetAllUsersService>()),
+            getMealsService: i.get<GetMealsService>(),
+            getCurrentUserService: i.get<GetCurrentUserService>(),
+            getReativeMealsService: i.get<GetReativeMealsService>(),
+            getAllUsersService: i.get<GetAllUsersService>(),
+            uploadMealService: i.get<UploadMealService>(),
+          ),
         ),
       ];
 
