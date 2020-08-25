@@ -65,7 +65,7 @@ abstract class _MealFeedControllerBase with Store {
     data['nutriName'] = currentUser.nome;
 
     await uploadMealService.execute(data: data, meal: documentId);
-    Modular.to.pushReplacementNamed(Modular.actualRoute);
+    Modular.to.pushReplacementNamed(Modular.initialRoute);
   }
 
   @action

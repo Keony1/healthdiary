@@ -95,6 +95,20 @@ mixin _$MealFeedController on _MealFeedControllerBase, Store {
     }, _$reativeMealsListAtom, name: '${_$reativeMealsListAtom.name}_set');
   }
 
+  final _$getUserAsyncAction = AsyncAction('getUser');
+
+  @override
+  Future getUser() {
+    return _$getUserAsyncAction.run(() => super.getUser());
+  }
+
+  final _$saveRateAsyncAction = AsyncAction('saveRate');
+
+  @override
+  Future saveRate(int rating, String documentId) {
+    return _$saveRateAsyncAction.run(() => super.saveRate(rating, documentId));
+  }
+
   final _$loadMealsAsyncAction = AsyncAction('loadMeals');
 
   @override

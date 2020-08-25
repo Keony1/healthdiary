@@ -1,0 +1,8 @@
+lib/app/modules/register/register_module.dart
+lib/app/modules/register/register_page.dart
+test/app/modules/register/register_page_test.dart
+lib/app/modules/register/repositories/interfaces/register_repository_interface.dart
+lib/app/modules/register/register_controller.dart
+lib/app/modules/register/repositories/register_repository.dart
+test/app/modules/register/register_controller_test.dart
+test/app/modules/register/repositories/register_repository_test.dart
