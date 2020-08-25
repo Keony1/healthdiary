@@ -57,8 +57,8 @@ class MealFeedModule extends ChildModule {
       ];
 
   @override
-  List<Router> get routers => [
-        Router(Modular.initialRoute, child: (_, args) => MealFeedPage()),
+  List<ModularRouter> get routers => [
+        ModularRouter(Modular.initialRoute, child: (_, args) => MealFeedPage()),
       ];
 
   static Inject get to => Inject<MealFeedModule>.of();
