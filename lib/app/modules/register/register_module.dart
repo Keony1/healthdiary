@@ -7,7 +7,11 @@ import 'register_page.dart';
 
 class RegisterModule extends ChildModule {
   @override
-  List<Bind> get binds => [];
+  List<Bind> get binds => [
+        Bind(
+          (i) => RegisterController(),
+        ),
+      ];
 
   @override
   List<ModularRouter> get routers => [

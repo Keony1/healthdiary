@@ -139,28 +139,48 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                             ),
                           )),
                       SizedBox(
-                        height: 40,
-                      ),
-                      SizedBox(
-                        height: 40,
+                        height: 20,
                       ),
                       FadeAnimation(
                         1.6,
                         Observer(builder: (_) {
-                          return SizedBox(
-                            height: 50,
-                            child: RaisedButton(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(18.0),
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: <Widget>[
+                              SizedBox(
+                                height: 50,
+                                child: RaisedButton(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(18.0),
+                                  ),
+                                  color: Color.fromRGBO(248, 80, 50, 0.8),
+                                  child: Text("Entrar"),
+                                  onPressed: controller.isFormValid
+                                      ? controller.login
+                                      : null,
+                                  textColor: Colors.white,
+                                  disabledColor:
+                                      Color.fromRGBO(248, 80, 50, 0.5),
+                                ),
                               ),
-                              color: Color.fromRGBO(248, 80, 50, 0.8),
-                              child: Text("Entrar"),
-                              onPressed: controller.isFormValid
-                                  ? controller.login
-                                  : null,
-                              textColor: Colors.white,
-                              disabledColor: Color.fromRGBO(248, 80, 50, 0.5),
-                            ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              SizedBox(
+                                height: 50,
+                                child: RaisedButton(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(18.0),
+                                  ),
+                                  color: Color.fromRGBO(248, 80, 50, 0.8),
+                                  child: Text("Cadastrar-se"),
+                                  onPressed: _redirectToRegisterModule,
+                                  textColor: Colors.white,
+                                ),
+                              ),
+                            ],
                           );
                         }),
                       ),
@@ -173,5 +193,9 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
         ],
       ),
     );
+  }
+
+  void _redirectToRegisterModule() {
+    Modular.to.pushReplacementNamed('/register');
   }
 }
