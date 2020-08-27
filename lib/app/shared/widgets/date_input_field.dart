@@ -61,6 +61,7 @@ class DateInputField extends StatelessWidget {
         .then((date) {
       DateFormat formatter = new DateFormat('dd/MM/yyyy');
       controller.text = formatter.format(date);
+      this.onChanged(controller.text);
     });
   }
 }

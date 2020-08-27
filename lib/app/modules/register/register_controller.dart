@@ -8,10 +8,87 @@ class RegisterController = _RegisterControllerBase with _$RegisterController;
 
 abstract class _RegisterControllerBase with Store {
   @observable
-  int value = 0;
+  String error = "";
+
+  @observable
+  String name = "";
+
+  @observable
+  String email = "";
+
+  @observable
+  String birthDate;
+
+  @observable
+  String password = "";
+
+  @observable
+  String passwordConfirmation = "";
 
   @action
-  void increment() {
-    value++;
+  void setName(String value) {
+    error = "";
+    name = value;
+  }
+
+  @action
+  void setEmail(String value) {
+    error = "";
+    email = value;
+  }
+
+  @action
+  void setBirthDate(String value) {
+    error = "";
+    birthDate = value;
+  }
+
+  @action
+  void setPassword(String value) {
+    error = "";
+    password = value;
+  }
+
+  @action
+  void setPasswordConfirmation(String value) {
+    error = "";
+    passwordConfirmation = value;
+  }
+
+  @computed
+  String get errorName => name == null ? 'Digite seu nome' : null;
+
+  @computed
+  String get errorEmail =>
+      email.length > 0 && email.length < 4 ? "Deve ser um e-mail válido" : null;
+
+  @computed
+  String get errorBirthDate => null;
+
+  @computed
+  String get errorMatchPassword =>
+      password != passwordConfirmation ? 'Senhas não conferem!' : null;
+
+  @computed
+  bool get isNameValid => name != null;
+
+  @computed
+  bool get isEmailValid => email.length >= 3;
+
+  @computed
+  bool get isBirthDateValid => true;
+
+  @computed
+  bool get isPasswordValid => password == passwordConfirmation;
+
+  @computed
+  bool get isFormValid =>
+      isNameValid && isEmailValid && isBirthDateValid && isPasswordValid;
+
+  @action
+  register() {
+    print('fazendo o registro....');
+    print(birthDate);
+    print(name);
   }
 }

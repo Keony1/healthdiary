@@ -85,40 +85,61 @@ class _RegisterPageState
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: <Widget>[
                                 Observer(builder: (_) {
-                                  return ListTile(
-                                    leading: Icon(Icons.person_outline),
-                                    title: InputField(
-                                      hint: "Nome",
-                                      // onChanged: controller.setEmail,
-                                      // errorText: controller.errorEmail,
-                                      // onTap: controller.isTappedEmail,
-                                    ),
+                                  return InputField(
+                                    hint: "Nome",
+                                    onChanged: controller.setName,
+                                    errorText: controller.errorName,
+                                    // onTap: controller.isTappedEmail,
                                   );
                                 }),
                                 SizedBox(
                                   height: 10,
                                 ),
                                 Observer(builder: (_) {
-                                  return ListTile(
-                                    leading: Icon(Icons.lock_outline),
-                                    title: InputField(
-                                      hint: "Senha",
-                                      obscure: true,
-                                      // onChanged: controller.setPassword,
-                                      // errorText: controller.errorPassword,
-                                      // onTap: controller.isTappedPassword,
-                                    ),
+                                  return InputField(
+                                    hint: "Email",
+                                    onChanged: controller.setEmail,
+                                    errorText: controller.errorEmail,
+                                    // onTap: controller.isTappedEmail,
                                   );
                                 }),
+                                SizedBox(
+                                  height: 10,
+                                ),
                                 Observer(
                                   builder: (_) {
-                                    return ListTile(
-                                        leading: Icon(Icons.calendar_today),
-                                        title: DateInputField(
-                                          hint: 'Data de nascimento',
-                                        ));
+                                    return DateInputField(
+                                      hint: 'Data de nascimento',
+                                      onChanged: controller.setBirthDate,
+                                      errorText: controller.errorBirthDate,
+                                    );
                                   },
-                                )
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Observer(builder: (_) {
+                                  return InputField(
+                                    hint: "Senha",
+                                    obscure: true,
+                                    onChanged: controller.setPassword,
+                                    errorText: controller.errorMatchPassword,
+                                    // onTap: controller.isTappedPassword,
+                                  );
+                                }),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Observer(builder: (_) {
+                                  return InputField(
+                                    hint: "Confirmar senha",
+                                    obscure: true,
+                                    onChanged:
+                                        controller.setPasswordConfirmation,
+                                    // errorText: controller.errorPassword,
+                                    // onTap: controller.isTappedPassword,
+                                  );
+                                }),
                               ],
                             ),
                           )),
@@ -135,8 +156,10 @@ class _RegisterPageState
                                 borderRadius: new BorderRadius.circular(18.0),
                               ),
                               color: Color.fromRGBO(248, 80, 50, 0.8),
-                              child: Text("Entrar"),
-                              onPressed: () {},
+                              child: Text("Registrar-se"),
+                              onPressed: controller.isFormValid
+                                  ? controller.register
+                                  : null,
                               textColor: Colors.white,
                               disabledColor: Color.fromRGBO(248, 80, 50, 0.5),
                             ),
