@@ -113,8 +113,10 @@ class _RegisterPageState
                                 Observer(
                                   builder: (_) {
                                     return ListTile(
-                                        leading: Icon(Icons.person_outline),
-                                        title: DateInputField());
+                                        leading: Icon(Icons.calendar_today),
+                                        title: DateInputField(
+                                          hint: 'Data de nascimento',
+                                        ));
                                   },
                                 )
                               ],

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class DateInputField extends StatelessWidget {
-  final IconData icon;
   final String hint;
   final bool obscure;
   final Function(String) onChanged;
   final Function onTap;
   final String errorText;
   final String imgFolder;
+  final TextEditingController controller = TextEditingController();
 
   DateInputField(
       {this.hint,
-      this.icon,
       this.obscure = false,
       this.onChanged,
       this.onTap,
@@ -21,7 +21,9 @@ class DateInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
       onChanged: onChanged,
+      keyboardType: TextInputType.datetime,
       onTap: () => _onTap(context),
       decoration: InputDecoration(
         hintText: hint,
@@ -49,10 +51,16 @@ class DateInputField extends StatelessWidget {
 
   void _onTap(BuildContext context) {
     showDatePicker(
-        context: context,
-        firstDate: DateTime.now(),
-        initialDate: DateTime.now(),
-        lastDate: DateTime.now(),
-        locale: const Locale('pt'));
+            helpText: "Selecione uma data",
+            context: context,
+            confirmText: "CONFIRMAR",
+            firstDate: DateTime(1950),
+            initialDate: DateTime.now(),
+            lastDate: DateTime.now(),
+            locale: const Locale('pt'))
+        .then((date) {
+      DateFormat formatter = new DateFormat('dd/MM/yyyy');
+      controller.text = formatter.format(date);
+    });
   }
 }
