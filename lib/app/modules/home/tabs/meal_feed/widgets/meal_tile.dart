@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:healthdiary/app/modules/home/tabs/meal_feed/widgets/not_rated_tile.dart';
 import 'package:healthdiary/app/modules/home/tabs/meal_feed/widgets/rated_tile.dart';
 import 'package:healthdiary/app/shared/utils/time_formatter.dart';
@@ -9,14 +10,12 @@ import 'package:shimmer/shimmer.dart';
 class MealTile extends StatelessWidget {
   final card;
   final currentUser;
-  final Function sendRate;
+  final sendRate;
 
   const MealTile({Key key, this.card, this.currentUser, this.sendRate})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    print(card);
-
     var date = DateTime.parse(card['data'].toDate().toString());
     String message;
 
@@ -50,11 +49,9 @@ class MealTile extends StatelessWidget {
             onSubmitPressed: (int rating) {
               print("onSubmitPressed: rating = $rating");
               sendRate(rating, card['documentId']);
-              // TODO: open the app's page on Google Play / Apple App Store
             },
             onAlternativePressed: () {
               print("onAlternativePressed: do something");
-              // TODO: maybe you want the user to contact you instead of rating a bad review
             },
           );
         },
@@ -175,10 +172,16 @@ class MealTile extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  message,
-                  style: TextStyle(
-                    color: Colors.grey,
+                GestureDetector(
+                  onTap: () => Modular.to.pushNamed(
+                    '/comments',
+                    arguments: card['documentId'],
+                  ),
+                  child: Text(
+                    message,
+                    style: TextStyle(
+                      color: Colors.grey,
+                    ),
                   ),
                 )
               ],

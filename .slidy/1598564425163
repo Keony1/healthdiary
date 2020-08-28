@@ -1,0 +1,2 @@
+lib/app/modules/chat/services/teste_service.dart
+test/app/modules/chat/services/teste_service_test.dart

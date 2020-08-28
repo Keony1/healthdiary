@@ -1,0 +1,8 @@
+lib/app/modules/chat/chat_module.dart
+lib/app/modules/chat/chat_page.dart
+test/app/modules/chat/chat_page_test.dart
+lib/app/modules/chat/repositories/interfaces/chat_repository_interface.dart
+lib/app/modules/chat/chat_controller.dart
+lib/app/modules/chat/repositories/chat_repository.dart
+test/app/modules/chat/chat_controller_test.dart
+test/app/modules/chat/repositories/chat_repository_test.dart

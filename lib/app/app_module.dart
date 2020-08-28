@@ -3,6 +3,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/material.dart';
 import 'package:healthdiary/app/app_widget.dart';
 import 'package:healthdiary/app/modules/add_meal/add_meal_module.dart';
+import 'package:healthdiary/app/modules/chat/chat_module.dart';
 import 'package:healthdiary/app/modules/home/home_module.dart';
 import 'package:healthdiary/app/modules/register/register_module.dart';
 //banana
@@ -20,6 +21,7 @@ class AppModule extends MainModule {
         ModularRouter('/home', module: HomeModule()),
         ModularRouter('/add_meal', module: AddMealModule()),
         ModularRouter('/register', module: RegisterModule()),
+        ModularRouter('/comments', module: ChatModule()),
       ];
 
   @override

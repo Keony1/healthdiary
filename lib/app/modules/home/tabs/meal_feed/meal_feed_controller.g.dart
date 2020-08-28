@@ -131,6 +131,17 @@ mixin _$MealFeedController on _MealFeedControllerBase, Store {
   }
 
   @override
+  dynamic goToCommentsPage(String mealId) {
+    final _$actionInfo =
+        _$_MealFeedControllerBaseActionController.startAction();
+    try {
+      return super.goToCommentsPage(mealId);
+    } finally {
+      _$_MealFeedControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     final string =
         'currentUser: ${currentUser.toString()},cardList: ${cardList.toString()},mealsList: ${mealsList.toString()},updated: ${updated.toString()},reativeMealsList: ${reativeMealsList.toString()}';

@@ -69,6 +69,11 @@ abstract class _MealFeedControllerBase with Store {
   }
 
   @action
+  goToCommentsPage(String mealId) {
+    Modular.to.pushReplacementNamed('/comments', arguments: mealId);
+  }
+
+  @action
   loadMeals() async {
     List<User> usersList = await getAllUsersService.execute();
     mealsList = await getMealsService.execute();
