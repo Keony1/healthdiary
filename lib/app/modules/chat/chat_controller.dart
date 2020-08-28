@@ -2,6 +2,7 @@ import 'package:healthdiary/app/modules/chat/services/get_comments_service.dart'
 import 'package:healthdiary/app/shared/models/Comment.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:dartz/dartz.dart';
 
 part 'chat_controller.g.dart';
 
@@ -18,7 +19,8 @@ abstract class _ChatControllerBase with Store {
 
   @action
   void getCommentsSnapshots(String mealId) {
-    print(mealId);
-    commentsSnapshots = getCommentsService.execute(mealId).asObservable();
+    var result = getCommentsService.call(mealId);
+
+    result.fold((l) => left(l), (r) => commentsSnapshots = r.asObservable());
   }
 }

@@ -24,8 +24,8 @@ dependencies:
   cloud_firestore: ^0.13.5
   firebase_auth: ^0.16.0
   dio: ^3.0.9
-  flutter_mobx: ^1.1.0
-  mobx: ^1.1.1
+  flutter_mobx: ^1.1.0+2
+  mobx: ^1.2.1+2
   flutter_modular: ^2.0.0
   simple_animations: ^2.1.1
   supercharged: ^1.5.1
@@ -46,7 +46,8 @@ dependencies:
 
 dev_dependencies:
   mockito: ^4.1.1
-  mobx_codegen: ^1.0.3
+  mobx_codegen: ^1.1.0+1
+  dartz: ^0.9.1
   build_runner: ^1.9.0
   flutter_launcher_icons: ^0.7.5
   json_serializable:

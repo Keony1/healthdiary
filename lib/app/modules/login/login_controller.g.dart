@@ -6,155 +6,150 @@ part of 'login_controller.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$LoginController on _LoginControllerBase, Store {
   Computed<bool> _$isEmailValidComputed;
 
   @override
   bool get isEmailValid =>
-      (_$isEmailValidComputed ??= Computed<bool>(() => super.isEmailValid))
+      (_$isEmailValidComputed ??= Computed<bool>(() => super.isEmailValid,
+              name: '_LoginControllerBase.isEmailValid'))
           .value;
   Computed<bool> _$isPasswordValidComputed;
 
   @override
-  bool get isPasswordValid => (_$isPasswordValidComputed ??=
-          Computed<bool>(() => super.isPasswordValid))
-      .value;
+  bool get isPasswordValid =>
+      (_$isPasswordValidComputed ??= Computed<bool>(() => super.isPasswordValid,
+              name: '_LoginControllerBase.isPasswordValid'))
+          .value;
   Computed<bool> _$isFormValidComputed;
 
   @override
   bool get isFormValid =>
-      (_$isFormValidComputed ??= Computed<bool>(() => super.isFormValid)).value;
+      (_$isFormValidComputed ??= Computed<bool>(() => super.isFormValid,
+              name: '_LoginControllerBase.isFormValid'))
+          .value;
   Computed<String> _$errorEmailComputed;
 
   @override
   String get errorEmail =>
-      (_$errorEmailComputed ??= Computed<String>(() => super.errorEmail)).value;
+      (_$errorEmailComputed ??= Computed<String>(() => super.errorEmail,
+              name: '_LoginControllerBase.errorEmail'))
+          .value;
   Computed<String> _$errorPasswordComputed;
 
   @override
   String get errorPassword =>
-      (_$errorPasswordComputed ??= Computed<String>(() => super.errorPassword))
+      (_$errorPasswordComputed ??= Computed<String>(() => super.errorPassword,
+              name: '_LoginControllerBase.errorPassword'))
           .value;
 
   final _$emailAtom = Atom(name: '_LoginControllerBase.email');
 
   @override
   String get email {
-    _$emailAtom.context.enforceReadPolicy(_$emailAtom);
-    _$emailAtom.reportObserved();
+    _$emailAtom.reportRead();
     return super.email;
   }
 
   @override
   set email(String value) {
-    _$emailAtom.context.conditionallyRunInAction(() {
+    _$emailAtom.reportWrite(value, super.email, () {
       super.email = value;
-      _$emailAtom.reportChanged();
-    }, _$emailAtom, name: '${_$emailAtom.name}_set');
+    });
   }
 
   final _$passwordAtom = Atom(name: '_LoginControllerBase.password');
 
   @override
   String get password {
-    _$passwordAtom.context.enforceReadPolicy(_$passwordAtom);
-    _$passwordAtom.reportObserved();
+    _$passwordAtom.reportRead();
     return super.password;
   }
 
   @override
   set password(String value) {
-    _$passwordAtom.context.conditionallyRunInAction(() {
+    _$passwordAtom.reportWrite(value, super.password, () {
       super.password = value;
-      _$passwordAtom.reportChanged();
-    }, _$passwordAtom, name: '${_$passwordAtom.name}_set');
+    });
   }
 
   final _$errorAtom = Atom(name: '_LoginControllerBase.error');
 
   @override
   String get error {
-    _$errorAtom.context.enforceReadPolicy(_$errorAtom);
-    _$errorAtom.reportObserved();
+    _$errorAtom.reportRead();
     return super.error;
   }
 
   @override
   set error(String value) {
-    _$errorAtom.context.conditionallyRunInAction(() {
+    _$errorAtom.reportWrite(value, super.error, () {
       super.error = value;
-      _$errorAtom.reportChanged();
-    }, _$errorAtom, name: '${_$errorAtom.name}_set');
+    });
   }
 
   final _$loadingAtom = Atom(name: '_LoginControllerBase.loading');
 
   @override
   bool get loading {
-    _$loadingAtom.context.enforceReadPolicy(_$loadingAtom);
-    _$loadingAtom.reportObserved();
+    _$loadingAtom.reportRead();
     return super.loading;
   }
 
   @override
   set loading(bool value) {
-    _$loadingAtom.context.conditionallyRunInAction(() {
+    _$loadingAtom.reportWrite(value, super.loading, () {
       super.loading = value;
-      _$loadingAtom.reportChanged();
-    }, _$loadingAtom, name: '${_$loadingAtom.name}_set');
+    });
   }
 
   final _$userAtom = Atom(name: '_LoginControllerBase.user');
 
   @override
   Map<dynamic, dynamic> get user {
-    _$userAtom.context.enforceReadPolicy(_$userAtom);
-    _$userAtom.reportObserved();
+    _$userAtom.reportRead();
     return super.user;
   }
 
   @override
   set user(Map<dynamic, dynamic> value) {
-    _$userAtom.context.conditionallyRunInAction(() {
+    _$userAtom.reportWrite(value, super.user, () {
       super.user = value;
-      _$userAtom.reportChanged();
-    }, _$userAtom, name: '${_$userAtom.name}_set');
+    });
   }
 
   final _$statusAtom = Atom(name: '_LoginControllerBase.status');
 
   @override
   AuthStatus get status {
-    _$statusAtom.context.enforceReadPolicy(_$statusAtom);
-    _$statusAtom.reportObserved();
+    _$statusAtom.reportRead();
     return super.status;
   }
 
   @override
   set status(AuthStatus value) {
-    _$statusAtom.context.conditionallyRunInAction(() {
+    _$statusAtom.reportWrite(value, super.status, () {
       super.status = value;
-      _$statusAtom.reportChanged();
-    }, _$statusAtom, name: '${_$statusAtom.name}_set');
+    });
   }
 
-  final _$autoLoginAsyncAction = AsyncAction('autoLogin');
+  final _$autoLoginAsyncAction = AsyncAction('_LoginControllerBase.autoLogin');
 
   @override
   Future autoLogin() {
     return _$autoLoginAsyncAction.run(() => super.autoLogin());
   }
 
-  final _$pushPageAsyncAction = AsyncAction('pushPage');
+  final _$pushPageAsyncAction = AsyncAction('_LoginControllerBase.pushPage');
 
   @override
   Future pushPage(dynamic status) {
     return _$pushPageAsyncAction.run(() => super.pushPage(status));
   }
 
-  final _$loginAsyncAction = AsyncAction('login');
+  final _$loginAsyncAction = AsyncAction('_LoginControllerBase.login');
 
   @override
   Future<dynamic> login() {
@@ -166,7 +161,8 @@ mixin _$LoginController on _LoginControllerBase, Store {
 
   @override
   void setEmail(String value) {
-    final _$actionInfo = _$_LoginControllerBaseActionController.startAction();
+    final _$actionInfo = _$_LoginControllerBaseActionController.startAction(
+        name: '_LoginControllerBase.setEmail');
     try {
       return super.setEmail(value);
     } finally {
@@ -176,7 +172,8 @@ mixin _$LoginController on _LoginControllerBase, Store {
 
   @override
   void setPassword(String value) {
-    final _$actionInfo = _$_LoginControllerBaseActionController.startAction();
+    final _$actionInfo = _$_LoginControllerBaseActionController.startAction(
+        name: '_LoginControllerBase.setPassword');
     try {
       return super.setPassword(value);
     } finally {
@@ -186,7 +183,8 @@ mixin _$LoginController on _LoginControllerBase, Store {
 
   @override
   void isTappedEmail() {
-    final _$actionInfo = _$_LoginControllerBaseActionController.startAction();
+    final _$actionInfo = _$_LoginControllerBaseActionController.startAction(
+        name: '_LoginControllerBase.isTappedEmail');
     try {
       return super.isTappedEmail();
     } finally {
@@ -196,7 +194,8 @@ mixin _$LoginController on _LoginControllerBase, Store {
 
   @override
   void isTappedPassword() {
-    final _$actionInfo = _$_LoginControllerBaseActionController.startAction();
+    final _$actionInfo = _$_LoginControllerBaseActionController.startAction(
+        name: '_LoginControllerBase.isTappedPassword');
     try {
       return super.isTappedPassword();
     } finally {
@@ -206,8 +205,18 @@ mixin _$LoginController on _LoginControllerBase, Store {
 
   @override
   String toString() {
-    final string =
-        'email: ${email.toString()},password: ${password.toString()},error: ${error.toString()},loading: ${loading.toString()},user: ${user.toString()},status: ${status.toString()},isEmailValid: ${isEmailValid.toString()},isPasswordValid: ${isPasswordValid.toString()},isFormValid: ${isFormValid.toString()},errorEmail: ${errorEmail.toString()},errorPassword: ${errorPassword.toString()}';
-    return '{$string}';
+    return '''
+email: ${email},
+password: ${password},
+error: ${error},
+loading: ${loading},
+user: ${user},
+status: ${status},
+isEmailValid: ${isEmailValid},
+isPasswordValid: ${isPasswordValid},
+isFormValid: ${isFormValid},
+errorEmail: ${errorEmail},
+errorPassword: ${errorPassword}
+    ''';
   }
 }

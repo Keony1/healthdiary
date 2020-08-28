@@ -6,75 +6,67 @@ part of 'meal_feed_controller.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$MealFeedController on _MealFeedControllerBase, Store {
   final _$currentUserAtom = Atom(name: '_MealFeedControllerBase.currentUser');
 
   @override
   User get currentUser {
-    _$currentUserAtom.context.enforceReadPolicy(_$currentUserAtom);
-    _$currentUserAtom.reportObserved();
+    _$currentUserAtom.reportRead();
     return super.currentUser;
   }
 
   @override
   set currentUser(User value) {
-    _$currentUserAtom.context.conditionallyRunInAction(() {
+    _$currentUserAtom.reportWrite(value, super.currentUser, () {
       super.currentUser = value;
-      _$currentUserAtom.reportChanged();
-    }, _$currentUserAtom, name: '${_$currentUserAtom.name}_set');
+    });
   }
 
   final _$cardListAtom = Atom(name: '_MealFeedControllerBase.cardList');
 
   @override
   ObservableList<dynamic> get cardList {
-    _$cardListAtom.context.enforceReadPolicy(_$cardListAtom);
-    _$cardListAtom.reportObserved();
+    _$cardListAtom.reportRead();
     return super.cardList;
   }
 
   @override
   set cardList(ObservableList<dynamic> value) {
-    _$cardListAtom.context.conditionallyRunInAction(() {
+    _$cardListAtom.reportWrite(value, super.cardList, () {
       super.cardList = value;
-      _$cardListAtom.reportChanged();
-    }, _$cardListAtom, name: '${_$cardListAtom.name}_set');
+    });
   }
 
   final _$mealsListAtom = Atom(name: '_MealFeedControllerBase.mealsList');
 
   @override
   List<Meal> get mealsList {
-    _$mealsListAtom.context.enforceReadPolicy(_$mealsListAtom);
-    _$mealsListAtom.reportObserved();
+    _$mealsListAtom.reportRead();
     return super.mealsList;
   }
 
   @override
   set mealsList(List<Meal> value) {
-    _$mealsListAtom.context.conditionallyRunInAction(() {
+    _$mealsListAtom.reportWrite(value, super.mealsList, () {
       super.mealsList = value;
-      _$mealsListAtom.reportChanged();
-    }, _$mealsListAtom, name: '${_$mealsListAtom.name}_set');
+    });
   }
 
   final _$updatedAtom = Atom(name: '_MealFeedControllerBase.updated');
 
   @override
   bool get updated {
-    _$updatedAtom.context.enforceReadPolicy(_$updatedAtom);
-    _$updatedAtom.reportObserved();
+    _$updatedAtom.reportRead();
     return super.updated;
   }
 
   @override
   set updated(bool value) {
-    _$updatedAtom.context.conditionallyRunInAction(() {
+    _$updatedAtom.reportWrite(value, super.updated, () {
       super.updated = value;
-      _$updatedAtom.reportChanged();
-    }, _$updatedAtom, name: '${_$updatedAtom.name}_set');
+    });
   }
 
   final _$reativeMealsListAtom =
@@ -82,34 +74,33 @@ mixin _$MealFeedController on _MealFeedControllerBase, Store {
 
   @override
   ObservableStream<List<Meal>> get reativeMealsList {
-    _$reativeMealsListAtom.context.enforceReadPolicy(_$reativeMealsListAtom);
-    _$reativeMealsListAtom.reportObserved();
+    _$reativeMealsListAtom.reportRead();
     return super.reativeMealsList;
   }
 
   @override
   set reativeMealsList(ObservableStream<List<Meal>> value) {
-    _$reativeMealsListAtom.context.conditionallyRunInAction(() {
+    _$reativeMealsListAtom.reportWrite(value, super.reativeMealsList, () {
       super.reativeMealsList = value;
-      _$reativeMealsListAtom.reportChanged();
-    }, _$reativeMealsListAtom, name: '${_$reativeMealsListAtom.name}_set');
+    });
   }
 
-  final _$getUserAsyncAction = AsyncAction('getUser');
+  final _$getUserAsyncAction = AsyncAction('_MealFeedControllerBase.getUser');
 
   @override
   Future getUser() {
     return _$getUserAsyncAction.run(() => super.getUser());
   }
 
-  final _$saveRateAsyncAction = AsyncAction('saveRate');
+  final _$saveRateAsyncAction = AsyncAction('_MealFeedControllerBase.saveRate');
 
   @override
   Future saveRate(int rating, String documentId) {
     return _$saveRateAsyncAction.run(() => super.saveRate(rating, documentId));
   }
 
-  final _$loadMealsAsyncAction = AsyncAction('loadMeals');
+  final _$loadMealsAsyncAction =
+      AsyncAction('_MealFeedControllerBase.loadMeals');
 
   @override
   Future loadMeals() {
@@ -121,8 +112,8 @@ mixin _$MealFeedController on _MealFeedControllerBase, Store {
 
   @override
   dynamic checkForUpdates() {
-    final _$actionInfo =
-        _$_MealFeedControllerBaseActionController.startAction();
+    final _$actionInfo = _$_MealFeedControllerBaseActionController.startAction(
+        name: '_MealFeedControllerBase.checkForUpdates');
     try {
       return super.checkForUpdates();
     } finally {
@@ -132,8 +123,8 @@ mixin _$MealFeedController on _MealFeedControllerBase, Store {
 
   @override
   dynamic goToCommentsPage(String mealId) {
-    final _$actionInfo =
-        _$_MealFeedControllerBaseActionController.startAction();
+    final _$actionInfo = _$_MealFeedControllerBaseActionController.startAction(
+        name: '_MealFeedControllerBase.goToCommentsPage');
     try {
       return super.goToCommentsPage(mealId);
     } finally {
@@ -143,8 +134,12 @@ mixin _$MealFeedController on _MealFeedControllerBase, Store {
 
   @override
   String toString() {
-    final string =
-        'currentUser: ${currentUser.toString()},cardList: ${cardList.toString()},mealsList: ${mealsList.toString()},updated: ${updated.toString()},reativeMealsList: ${reativeMealsList.toString()}';
-    return '{$string}';
+    return '''
+currentUser: ${currentUser},
+cardList: ${cardList},
+mealsList: ${mealsList},
+updated: ${updated},
+reativeMealsList: ${reativeMealsList}
+    ''';
   }
 }

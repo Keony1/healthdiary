@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import 'interfaces/chat_repository_interface.dart';
+import 'package:dartz/dartz.dart';
+import 'package:healthdiary/app/modules/chat/errors/errors.dart';
 
 @Injectable()
 class ChatRepository implements IChatRepository {
@@ -9,15 +11,20 @@ class ChatRepository implements IChatRepository {
 
   ChatRepository({this.firestore});
 
-  Stream<QuerySnapshot> getStreamComments(String id) {
+  Either<FailureChat, Stream<QuerySnapshot>> getStreamComments(String mealId) {
+    print('00alou');
     final response = firestore
         .collection('meals')
-        .document(id)
+        .document(mealId)
         .collection("comments")
         .orderBy('time', descending: true)
         .snapshots();
 
-    return response;
+    if (response == null) {
+      return Left(InvalidReturnError());
+    }
+
+    return Right(response);
   }
 
   //dispose will be called automatically
