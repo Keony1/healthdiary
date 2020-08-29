@@ -1,5 +1,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:healthdiary/app/modules/register/repositories/register_repository.dart';
+import 'package:healthdiary/app/modules/register/models/user_registration.dart';
 
 part 'register_controller.g.dart';
 
@@ -7,6 +9,10 @@ part 'register_controller.g.dart';
 class RegisterController = _RegisterControllerBase with _$RegisterController;
 
 abstract class _RegisterControllerBase with Store {
+  final RegisterRepository registerRepository;
+
+  _RegisterControllerBase({this.registerRepository});
+
   @observable
   String error = "";
 
@@ -34,7 +40,7 @@ abstract class _RegisterControllerBase with Store {
   @action
   void setEmail(String value) {
     error = "";
-    email = value;
+    email = value.trim();
   }
 
   @action
@@ -79,16 +85,35 @@ abstract class _RegisterControllerBase with Store {
   bool get isBirthDateValid => true;
 
   @computed
-  bool get isPasswordValid => password == passwordConfirmation;
+  bool get isPasswordValid =>
+      password == passwordConfirmation && password.length >= 6;
 
   @computed
   bool get isFormValid =>
-      isNameValid && isEmailValid && isBirthDateValid && isPasswordValid;
+      isNameValid &&
+      isEmailValid &&
+      isBirthDateValid &&
+      isPasswordValid &&
+      error == '';
 
   @action
-  register() {
-    print('fazendo o registro....');
-    print(birthDate);
-    print(name);
+  Future register() async {
+    try {
+      UserRegistration user =
+          UserRegistration(email, password, name, birthDate);
+      await registerRepository.createUser(user);
+
+      Modular.to.pushNamed('/login');
+    } catch (exception) {
+      switch (exception.code) {
+        case 'ERROR_EMAIL_ALREADY_IN_USE':
+          error = 'E-mail já está em uso';
+          break;
+        default:
+          error = 'Algo não está certo';
+          break;
+      }
+      // error = exception;
+    }
   }
 }

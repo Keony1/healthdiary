@@ -140,6 +140,20 @@ class _RegisterPageState
                                     // onTap: controller.isTappedPassword,
                                   );
                                 }),
+                                Observer(
+                                  builder: (_) {
+                                    if (controller.error != null) {
+                                      return Column(
+                                        children: <Widget>[
+                                          SizedBox(
+                                            height: 16,
+                                          ),
+                                          Center(child: Text(controller.error)),
+                                        ],
+                                      );
+                                    }
+                                  },
+                                )
                               ],
                             ),
                           )),

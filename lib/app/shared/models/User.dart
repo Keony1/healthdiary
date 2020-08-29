@@ -5,15 +5,16 @@ class User {
   String uid;
   double peso;
   int idade;
+  String dataNascimento;
 
-  User({
-    this.nome,
-    this.onesignalId,
-    this.role,
-    this.uid,
-    this.peso,
-    this.idade,
-  });
+  User(
+      {this.nome,
+      this.onesignalId,
+      this.role,
+      this.uid,
+      this.peso,
+      this.idade,
+      this.dataNascimento});
 
   User.fromJson(Map<String, dynamic> json) {
     nome = json['nome'];
@@ -22,6 +23,8 @@ class User {
     uid = json['uid'];
     peso = json['peso'];
     idade = json['idade'];
+    idade = json['idade'];
+    dataNascimento = json['dataNascimento'];
   }
 
   Map<String, dynamic> toJson() {
@@ -32,6 +35,7 @@ class User {
     data['uid'] = this.uid;
     data['peso'] = this.peso;
     data['idade'] = this.idade;
+    data['dataNascimento'] = this.dataNascimento;
     return data;
   }
 }

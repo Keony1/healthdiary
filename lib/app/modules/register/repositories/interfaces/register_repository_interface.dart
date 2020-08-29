@@ -1,5 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:healthdiary/app/modules/register/models/user_registration.dart';
+import 'package:healthdiary/app/shared/models/User.dart';
 
 abstract class IRegisterRepository implements Disposable {
-  Future fetchPost();
+  Future<User> createUser(UserRegistration user);
 }

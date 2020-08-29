@@ -1,16 +1,18 @@
-import 'package:dio/dio.dart';
-import 'repositories/register_repository.dart';
 import 'register_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-
+import 'package:healthdiary/app/modules/register/repositories/register_repository.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'register_page.dart';
 
 class RegisterModule extends ChildModule {
   @override
   List<Bind> get binds => [
         Bind(
-          (i) => RegisterController(),
+          (i) => RegisterController(
+            registerRepository: i(),
+          ),
         ),
+        Bind((i) => RegisterRepository(firebaseAuth: FirebaseAuth.instance))
       ];
 
   @override
